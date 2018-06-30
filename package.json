@@ -1,0 +1,19 @@
+{
+  "name": "mifi",
+  "version": "1.0.0",
+  "description": "Personal Finance App",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/colinknebl/mifi.git"
+  },
+  "author": "Colin Knebl",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/colinknebl/mifi/issues"
+  },
+  "homepage": "https://github.com/colinknebl/mifi#readme"
+}
