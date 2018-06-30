@@ -1,0 +1,7 @@
+{
+  "port": 8080,
+  "prod": {
+    "path": "../client/build/"
+  },
+  "dev": {}
+}
