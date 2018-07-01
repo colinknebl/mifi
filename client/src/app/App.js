@@ -1,31 +1,33 @@
 import React, { Component } from 'react';
-import logo from '../_assets/logo.svg';
-import './App.css';
-import { AppProvider } from './state/state'
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch
+} from 'react-router-dom';
 
-import Header from '../components/header/header'
-import Sidebar from '../components/sidebar/sidebar'
-import Footer from '../components/footer/footer'
+import { AppProvider } from './state/index'
+
+
+
+import Home from '../pages/home/home'
+import About from '../pages/about/about'
+
 
 class App extends Component {
   render() {
     return (
       <AppProvider>
-        <div className="App">
-          <Header />
-          <Sidebar />
-          <header className="App-header">
-            <img src={logo} className="App-logo" alt="logo" />
-            <h1 className="App-title">Welcome to React</h1>
-          </header>
-          <p className="App-intro">
-            To get started, edit <code>src/App.js</code> and save to reload.
-          </p>
-          <Footer />
-        </div>
+        <Router>
+          <Switch>
+            <Route exact path="/" render={props => <Home {...props} />} />
+            <Route exact path="/about" render={props => <About {...props} />} />
+          </Switch>
+        </Router>
       </AppProvider>
     );
   }
 }
 
 export default App;
+
+// <Route exact path="/" component={Home} />
