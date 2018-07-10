@@ -8,11 +8,12 @@
       "name": "API",
       "type": "node",
       "request": "launch",
-      "port": 1234,
+      "port": 56830,
       "protocol": "inspector",
       "runtimeExecutable": "npm",
       "runtimeArgs": [
-        "start"
+        "run",
+        "start-api"
       ],
       "console": "integratedTerminal"
     },
@@ -42,17 +43,11 @@
       "url": "http://localhost:3000",
       "webRoot": "${workspaceFolder}/client/src"
     },
-    {
-      "name": "Launch index.html",
-      "type": "chrome",
-      "request": "launch",
-      "file": "${workspaceFolder}/client/build/index.html"
-    },
   ],
   "compounds": [
     {
       "name": "Full-stack",
-      "configurations":["Server", "Launch localhost"]
+      "configurations":["API", "Launch localhost"]
     }
   ]
 }

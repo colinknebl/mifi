@@ -1,0 +1,6 @@
+{
+  "port": 56830,
+  "endpointsDir": "/Users/knebco/personal/mifi/api/endpoints/",
+  "prod": { },
+  "dev": { }
+}
