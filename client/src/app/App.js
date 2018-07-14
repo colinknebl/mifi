@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import {
   BrowserRouter as Router,
   Route,
-  Switch
+  Switch,
+  Redirect
 } from 'react-router-dom';
 
 import { AppProvider } from './state/index'
@@ -14,13 +15,26 @@ import About from '../pages/about/about'
 
 
 class App extends Component {
+  constructor() {
+    super();
+  }
+
   render() {
     return (
       <AppProvider>
         <Router>
           <Switch>
-            <Route exact path="/" render={props => <Home {...props} />} />
+            <Route exact path="/" render={props =>  <Home {...props} />} />
             <Route exact path="/about" render={props => <About {...props} />} />
+            {/* Redirect example: */}
+            {/* <Route exact path="/about" render={() => (
+              this.loggedIn ? (
+                <Redirect to="/account"/>
+              ) : (
+                <Redirect to="/login"/>
+              )
+            )}/>  */}
+            
           </Switch>
         </Router>
       </AppProvider>

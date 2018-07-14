@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './home.css';
-import logo from '../../_assets/logo.svg'
+import logo from '../../_assets/images/logo.svg'
 import { AppContext } from '../../app/state/index'
 
 import Header from '../../components/header/header'

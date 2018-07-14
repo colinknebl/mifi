@@ -1,3 +1,7 @@
+:root {
+  --pri-color: rgb(164, 235, 124);
+}
+
 body {
   margin: 0;
   padding: 0;
