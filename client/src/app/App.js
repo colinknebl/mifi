@@ -26,15 +26,6 @@ class App extends Component {
           <Switch>
             <Route exact path="/" render={props =>  <Home {...props} />} />
             <Route exact path="/about" render={props => <About {...props} />} />
-            {/* Redirect example: */}
-            {/* <Route exact path="/about" render={() => (
-              this.loggedIn ? (
-                <Redirect to="/account"/>
-              ) : (
-                <Redirect to="/login"/>
-              )
-            )}/>  */}
-            
           </Switch>
         </Router>
       </AppProvider>
@@ -44,4 +35,16 @@ class App extends Component {
 
 export default App;
 
-// <Route exact path="/" component={Home} />
+/**
+    Simple path exmample:
+      Route exact path="/" component={Home} />
+
+    Redirect example: 
+      <Route exact path="/about" render={() => (
+        this.loggedIn ? (
+          <Redirect to="/account"/>
+        ) : (
+          <Redirect to="/login"/>
+        )
+      )}/>
+ */
