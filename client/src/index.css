@@ -1,9 +1,8 @@
-:root {
-  --pri-color: rgb(164, 235, 124);
-}
+/* CSS Reset */
+@import './_assets/css/reset.css';
 
-body {
-  margin: 0;
-  padding: 0;
-  font-family: sans-serif;
-}
+/* Import variables */
+@import './_assets/css/variables.css';
+
+/* Import general styles */
+@import './_assets/css/general-styles.css';

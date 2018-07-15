@@ -3,29 +3,28 @@ import {
   BrowserRouter as Router,
   Route,
   Switch,
-  Redirect
+  //Redirect
 } from 'react-router-dom';
 
-import { AppProvider } from './state/index'
+import { AppProvider } from './state/index';
 
-
-
-import Home from '../pages/home/home'
-import About from '../pages/about/about'
-
+import Landing from '../pages/landing/landing';
+// import Home from '../pages/home/home';
+import About from '../pages/about/about';
+import Login from '../pages/login/login';
+import SignUp from '../pages/sign-up/sign-up';
 
 class App extends Component {
-  constructor() {
-    super();
-  }
 
   render() {
     return (
       <AppProvider>
         <Router>
           <Switch>
-            <Route exact path="/" render={props =>  <Home {...props} />} />
+            <Route exact path="/" render={props =>  <Landing {...props} />} />
             <Route exact path="/about" render={props => <About {...props} />} />
+            <Route exact path="/login" render={props => <Login {...props} />} />
+            <Route exact path="/sign-up" render={props => <SignUp {...props} />} />
           </Switch>
         </Router>
       </AppProvider>

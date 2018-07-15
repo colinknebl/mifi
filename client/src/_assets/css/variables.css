@@ -1,0 +1,9 @@
+:root {
+  --pri-color: rgb(164, 235, 124);
+  --font: Verdana, sans-serif;
+  --box-shadow-color: rgb(88, 88, 88);
+  --btn-hover-shadow: 0px 10px 30px -10px var(--box-shadow-color);
+  
+  font-size: 16px;
+}
+
