@@ -11,8 +11,8 @@ class SignUpBtn extends Component {
   }
   render() {
     return (
-      <Link to="/sign-up">
-        <button className="Signup-Btn btn btn-pri">Sign Up</button>
+      <Link to="/register">
+        <button className="Signup-Btn btn btn-pri">Register</button>
       </Link>
     );
   }

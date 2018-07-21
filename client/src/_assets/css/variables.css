@@ -1,9 +1,13 @@
 :root {
   --pri-color: rgb(164, 235, 124);
   --font: Verdana, sans-serif;
+  --font-color: #6C6C6C;
   --box-shadow-color: rgb(88, 88, 88);
-  --btn-hover-shadow: 0px 10px 30px -10px var(--box-shadow-color);
+  --box-shadow: 0px 10px 30px -10px var(--box-shadow-color);
+  --background-gradient: linear-gradient(var(--pri-color), whitesmoke);
+  --border-radius: 8px;
   
   font-size: 16px;
+  color: var(--font-color);
 }
 
