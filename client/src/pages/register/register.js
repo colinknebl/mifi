@@ -1,19 +1,19 @@
 import React, { Component } from 'react';
 // import { AppContext } from '../../app/state/index'
-import './sign-up.css';
+import './register.css';
 
-class SignUp extends Component {
+class Register extends Component {
   constructor(routerProps) {
     super();
     this.routerProps = routerProps
   }
   render() {
     return (
-      <div className="SignUp">
-        <h1>Signup page</h1>
+      <div className="Register">
+        <h1>Register</h1>
       </div>
     );
   }
 }
 
-export default SignUp;
+export default Register;

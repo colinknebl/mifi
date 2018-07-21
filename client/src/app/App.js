@@ -12,7 +12,7 @@ import Landing from '../pages/landing/landing';
 // import Home from '../pages/home/home';
 import About from '../pages/about/about';
 import Login from '../pages/login/login';
-import SignUp from '../pages/sign-up/sign-up';
+import Register from '../pages/register/register';
 
 class App extends Component {
 
@@ -24,7 +24,7 @@ class App extends Component {
             <Route exact path="/" render={props =>  <Landing {...props} />} />
             <Route exact path="/about" render={props => <About {...props} />} />
             <Route exact path="/login" render={props => <Login {...props} />} />
-            <Route exact path="/register" render={props => <SignUp {...props} />} />
+            <Route exact path="/register" render={props => <Register {...props} />} />
           </Switch>
         </Router>
       </AppProvider>
