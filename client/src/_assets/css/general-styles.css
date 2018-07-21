@@ -67,3 +67,14 @@ h6 {font-size: 1rem;}
   border-color: var(--pri-color);
   box-shadow: 0px 0px 5px 1px grey inset;
 }
+
+.link {
+  text-decoration: none;
+  color: blue;
+}
+.link:visited {
+  color: purple;
+}
+.link:hover {
+  color: red;
+}

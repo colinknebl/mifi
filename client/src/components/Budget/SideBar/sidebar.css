@@ -1,0 +1,135 @@
+.SideBar {
+  /* border-right: 3px solid var(--font-color); */
+  background: white;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 30%;
+  max-width: 300px;
+  display: grid;
+  grid-template-rows: 1fr 5fr 1fr;
+  grid-gap: 1rem;
+}
+.sidebar--image-container {
+  padding: 1rem;
+  display: grid;
+  justify-self: center;
+  align-self: center;
+}
+
+.SideBar svg {
+  height: 100px;
+  width: auto;
+  color: var(--pri-color);
+  margin: auto;
+}
+
+.sidebar--navigation {
+  border-top: 2px solid whitesmoke;
+  padding: 1rem;
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  grid-gap: 1rem;
+}
+
+.sidebar--navigation-list {
+  padding-left: 10%;
+}
+
+.sidebar--navigation-top {
+  align-self: center;
+}
+
+.sidebar--navigation-bottom {
+  align-self: end;
+}
+
+.sidebar--navigation-li {
+  margin: 1rem auto;
+  font-size: 1rem;
+}
+
+.sidebar--navigation-link {
+  text-decoration: none;
+  color: var(--font-color);
+}
+.sidebar--navigation-link:hover {
+  color: black;
+}
+.sidebar--navigation-link .fa {
+  min-width: 20px;
+}
+.sidebar--navigation-descript {
+  margin-left: 15px;
+}
+
+.sidebar--nametag {
+  border-top: 2px solid whitesmoke;
+  padding: .25rem;
+  display: grid;
+  grid-template-areas:
+    "icon email"
+    "icon link"
+  ;
+  grid-gap: 10px;
+}
+.sidebar--nametag-icon {
+  border: 1px solid var(--font-color);
+  border-radius: 50%;
+  padding: 10px;
+  font-size: 1.5rem;
+  display: inline-block;
+  grid-area: icon;
+  justify-self: center;
+  align-self: center;
+}
+.sidebar--nametag-email {
+  grid-area: email;
+  align-self: end;
+}
+.sidebar--nametag-link {
+  display: block;
+  grid-area: link;
+}
+
+@media screen and (max-width: 1000px) {
+  .SideBar {
+    max-width: 60px;
+    grid-gap: 0px;
+  }
+  .sidebar--image-container {
+    padding: initial !important;
+  }
+  .SideBar svg {
+    height: 30px;
+  }
+  .sidebar-navigation {
+    grid-gap: 0px;
+  }
+  .sidebar--navigation-li {
+    display: grid;
+    justify-items: center;
+  }
+  .sidebar--navigation-descript {
+    margin-left: 0px;
+  }
+  .sidebar--navigation-link .fa {
+    min-width: 0px;
+  }
+  .sidebar--nametag {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .sidebar--nametag-link {
+    margin-top: 5px;
+    font-size: .7rem;
+    text-align: center;
+  }
+  .sidebar--navigation-descript,
+  .sidebar--nametag-email {
+    display: none;
+  }
+
+}

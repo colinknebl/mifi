@@ -8,6 +8,13 @@
   grid-template-rows: 1fr 5fr 2fr;
 
 }
+.Landing svg {
+  color: var(--font-color);
+  height: 200px;
+  width: auto;
+  justify-self: center;
+  align-self: center;
+}
 .landing-title {
   /* text-align: center; */
   /* padding: 2rem; */
