@@ -24,7 +24,7 @@ class App extends Component {
             <Route exact path="/" render={props =>  <Landing {...props} />} />
             <Route exact path="/about" render={props => <About {...props} />} />
             <Route exact path="/login" render={props => <Login {...props} />} />
-            <Route exact path="/sign-up" render={props => <SignUp {...props} />} />
+            <Route exact path="/register" render={props => <SignUp {...props} />} />
           </Switch>
         </Router>
       </AppProvider>

@@ -1,5 +1,5 @@
 .Landing {
-  background: linear-gradient(var(--pri-color), whitesmoke);
+  background: var(--background-gradient);
   box-sizing: border-box;
   height: 100vh;
   padding: 1rem;
