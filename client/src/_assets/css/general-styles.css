@@ -17,8 +17,9 @@ h5 {font-size: 1.2rem;}
 h6 {font-size: 1rem;}
 
 .btn {
+  border: none;
   padding: 1rem;
-  border: none; 
+  margin: auto;
   font-size: 1.5rem;
   border-radius: 40px;
   outline: none;
