@@ -46,12 +46,19 @@ class SideBar extends Component {
           </ul>
 
           <ul className="sidebar--navigation-list sidebar--navigation-bottom">
-            <li className="sidebar--navigation-li" title="Settings">
+            <ListItem {...{
+              liClassName: 'sidebar--navigation-li',
+              title: 'Settings',
+              linkTo: 'account',
+              fontAwesomeIcon: 'sliders',
+
+            }}/>
+            {/* <li className="sidebar--navigation-li" title="Settings">
               <Link className="sidebar--navigation-link" to="account">
                 <i className="fa fa-sliders"></i>
                 <span className="sidebar--navigation-descript">Account Settings</span>
               </Link>
-            </li>
+            </li> */}
           </ul>
         </nav>
 
@@ -66,3 +73,15 @@ class SideBar extends Component {
 }
 
 export default SideBar;
+
+const ListItem = (props) => {
+  console.log('props :', props);
+  return (
+    <li className={props.liClassName} title="Settings">
+      <Link className="sidebar--navigation-link" to="account">
+        <i className="fa fa-sliders"></i>
+        <span className="sidebar--navigation-descript">Account Settings</span>
+      </Link>
+    </li> 
+  )
+}

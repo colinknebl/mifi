@@ -1,0 +1,67 @@
+.Register {
+  background: var(--background-gradient);
+  box-sizing: border-box;
+  min-height: 100vh;
+  display: grid;
+  justify-items: center;
+  align-items: center;
+}
+
+.Register hr {
+  width: 90%; 
+}
+
+.register--content-container {
+  border-radius: var(--border-radius);
+  background: whitesmoke;
+  box-shadow: var(--box-shadow);
+  width: 90%;
+  max-width: 500px;
+}
+
+.register--title {
+  text-align: center;
+  padding: 1rem;
+}
+
+.register--input {
+  width: 100%;
+  margin: 10px auto;
+}
+
+.register--submit-btn {
+  border: 3px solid transparent;
+}
+
+.register--grid-container {
+  width: 90%;
+  margin: auto auto 1rem auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas:
+    "form form"
+    "cancel-link register-link"
+  ;
+  grid-gap: 1rem; 
+}
+#register--form {
+  grid-area: form;
+}
+#register--cancel-link {
+  grid-area: cancel-link;
+  justify-self: start;
+}
+#register--register-link {
+  grid-area: register-link;
+  justify-self: end;
+}
+.register--link {
+  color: darkblue;
+  text-decoration: none;
+}
+.register--link:visited {
+  color: purple;
+}
+.register--link:hover {
+  color: red;
+}

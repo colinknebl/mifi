@@ -3,6 +3,7 @@ import './budget.css';
 
 import TopBar from '../../components/Budget/TopBar/topbar';
 import SideBar from '../../components/Budget/SideBar/sidebar';
+import BudgetHeader from '../../components/Budget/BudgetHeader/budgetHeader';
 
 class Budget extends Component {
   constructor(routerProps) {
@@ -14,8 +15,9 @@ class Budget extends Component {
       <main className="Budget">
         <TopBar />
         <SideBar />
-        {/* <Categories />
-        <Summary />
+        <BudgetHeader />
+        {/* <Categories /> */}
+        {/* <Summary />
         <Footer /> */}
       </main>
     );

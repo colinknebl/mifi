@@ -1,0 +1,20 @@
+{
+  "short_name": "MiFi",
+  "name": "MiFi",
+  "icons": [
+    {
+      "src": "favicon.ico",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "/static/media/logo-512-black.0c26eff1.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "./index.html",
+  "display": "standalone",
+  "theme_color": "#A4EB7C",
+  "background_color": "#A4EB7C"
+}
