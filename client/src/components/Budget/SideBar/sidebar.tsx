@@ -32,6 +32,14 @@ class SideBar extends React.Component {
 							titleClass: 'sidebar--navigation-description'
 						}}/>
 						<ListItem {...{
+							fontAwesomeIcon: 'folder-o',
+							liClassName: 'sidebar--navigation-li',
+							linkClassName: 'sidebar--navigation-link',
+							linkTo: '',
+							title: 'Folder Open',
+							titleClass: 'sidebar--navigation-description'
+						}}/>
+						<ListItem {...{
 							fontAwesomeIcon: 'code',
 							liClassName: 'sidebar--navigation-li',
 							linkClassName: 'sidebar--navigation-link',
