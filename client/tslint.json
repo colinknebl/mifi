@@ -10,6 +10,7 @@
   "rules": {
     "jsx-no-lambda": false,
     "jsdoc-format": false,
-    "no-console": false
+    "no-console": false,
+    "interface-name" : [true, "never-prefix"]
   }
 }

@@ -1,7 +1,7 @@
 .Budget {
-	border: 2px solid blue;
 	position: relative;
 	display: grid;
+	grid-template-columns: minmax(max-content, 250px) 6fr 3fr;;
 	grid-template-areas:
 		'sidebar header header'
 		'sidebar main-content summary'
