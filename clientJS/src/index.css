@@ -1,8 +1,0 @@
-/* CSS Reset */
-@import './_assets/css/reset.css';
-
-/* Import variables */
-@import './_assets/css/variables.css';
-
-/* Import general styles */
-@import './_assets/css/general-styles.css';
