@@ -1,66 +1,69 @@
-.SideBar {
+.AppNavigationBar {
   border-right: 1px solid var(--font-color);
   background: white;
-  padding: .5rem;
+  padding: var(--AppNavigationBar-padding);
   height: 100%;
   min-height: 100vh;
+  width: 280px;
+  position: fixed;
   grid-area: sidebar;
   display: grid;
   grid-template-rows: 1fr 2fr 1fr;
   grid-gap: 1rem;
 }
-.sidebar--image-container {
+
+.AppNavigationBar__image-container {
   padding: 1rem;
   display: grid;
   justify-self: center;
   align-self: center;
 }
 
-.SideBar svg {
+.AppNavigationBar svg {
   height: 100px;
   width: auto;
   color: var(--pri-color);
   margin: auto;
 }
 
-.sidebar--navigation {
+.AppNavigationBar__navigation {
   border-top: 2px solid whitesmoke;
   padding-left: 10%;
   display: grid;
   grid-gap: 1rem;
 }
 
-.sidebar--navigation-list {
+.AppNavigationBar__navigation-list {
 }
 
-.sidebar--navigation-top {
+.AppNavigationBar__navigation-top {
   align-self: center;
 }
 
-.sidebar--navigation-bottom {
+.AppNavigationBar__navigation-bottom {
   align-self: end;
 }
 
-.sidebar--navigation-li {
+.AppNavigationBar__navigation-li {
   margin: 1rem auto;
   font-size: 1rem;
 }
 
-.sidebar--navigation-link {
+.AppNavigationBar__navigation-link {
   text-decoration: none;
   color: var(--font-color);
 }
-.sidebar--navigation-link:hover {
+.AppNavigationBar__navigation-link:hover {
   color: black;
 }
-.sidebar--navigation-link .fa {
+.AppNavigationBar__navigation-link .fa {
   min-width: 20px;
 }
-.sidebar--navigation-description {
+.AppNavigationBar__navigation-description {
   margin-left: 15px;
 }
 
-.sidebar--nametag {
+.AppNavigationBar__nametag {
   border-top: 2px solid whitesmoke;
   display: grid;
   grid-template-areas:
@@ -69,7 +72,7 @@
   ;
   grid-gap: 10px;
 }
-.sidebar--nametag-icon {
+.AppNavigationBar__nametag-icon {
   border: 1px solid var(--font-color);
   border-radius: 50%;
   padding: 10px;
@@ -79,53 +82,53 @@
   justify-self: center;
   align-self: center;
 }
-.sidebar--nametag-email {
+.AppNavigationBar__nametag-email {
   grid-area: email;
   align-self: end;
 }
-.sidebar--nametag-link {
+.AppNavigationBar__nametag-link {
   display: block;
   grid-area: link;
 }
 
-@media screen and (max-width: 1000px) {
-  .SideBar {
-    max-width: 60px;
+@media screen and (max-width: 1200px) {
+  .AppNavigationBar {
     grid-gap: 0px;
-    padding: initial;
+    width: initial;
+    max-width: 67.02px;
   }
-  .sidebar--image-container {
+  .AppNavigationBar__image-container {
     padding: initial !important;
   }
-  .SideBar svg {
+  .AppNavigationBar svg {
     height: 30px;
   }
-  .sidebar--navigation {
+  .AppNavigationBar__navigation {
     padding-left: initial;
     grid-gap: 0px;
   }
-  .sidebar--navigation-li {
+  .AppNavigationBar__navigation-li {
     display: grid;
     justify-items: center;
   }
-  .sidebar--navigation-description {
+  .AppNavigationBar__navigation-description {
     margin-left: 0px;
   }
-  .sidebar--navigation-link .fa {
+  .AppNavigationBar__navigation-link .fa {
     min-width: 0px;
   }
-  .sidebar--nametag {
+  .AppNavigationBar__nametag {
     display: flex;
     flex-direction: column;
     justify-content: center;
   }
-  .sidebar--nametag-link {
+  .AppNavigationBar__nametag-link {
     margin-top: 5px;
     font-size: .7rem;
     text-align: center;
   }
-  .sidebar--navigation-description,
-  .sidebar--nametag-email {
+  .AppNavigationBar__navigation-description,
+  .AppNavigationBar__nametag-email {
     display: none;
   }
 

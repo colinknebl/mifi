@@ -2,10 +2,10 @@ import * as React from 'react';
 
 import './home.css';
 
-import { AppContext, AppProviderState } from '../../app/state/index'
 import Footer from '../../components/footer/footer'
 import Header from '../../components/header/header'
 import Sidebar from '../../components/sidebar/sidebar'
+import { AppContext, AppProviderState } from '../../Website/state/index'
 
 class Home extends React.Component {
   public routerProps: any;

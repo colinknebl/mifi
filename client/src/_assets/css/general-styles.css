@@ -1,17 +1,28 @@
+@font-face {
+  /* https://fonts.google.com/specimen/Roboto?selection.family=Roboto */
+  font-family: 'Roboto';
+  font-style: normal;
+  src: local('Roboto'), local('Roboto-Regular'), url(https://fonts.gstatic.com/s/roboto/v18/KFOmCnqEu92Fr1Mu7mxKKTU1Kvnz.woff2) format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+
 * {
   box-sizing: border-box;
+  font-family: 'Roboto', sans-serif;
 }
 body {
   background: whitesmoke;
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
+  font-family: 'Roboto', sans-serif;
   min-height: 100vh;
   min-width: 100vw;
   font-family: var(--font);
 }
-
+/* 
+  Header sizes
+*/
 h1 {font-size: 3rem;}
 h2 {font-size: 2.5rem;}
 h3 {font-size: 2.2rem;}
@@ -19,6 +30,19 @@ h4 {font-size: 1.7rem;}
 h5 {font-size: 1.2rem;}
 h6 {font-size: 1rem;}
 
+/* 
+  Font styles
+*/
+.font--light {
+  font-weight: 100;
+}
+.font--dark {
+  font-weight: 900;
+}
+
+/* 
+  Button styles
+*/
 .btn {
   border: none;
   padding: 1rem;
@@ -52,6 +76,9 @@ h6 {font-size: 1rem;}
   background: var(--pri-color);
 }
 
+/* 
+  Input styles
+*/
 .input {
   /* border: 1px solid var(--pri-color); */
   border: none;
@@ -71,6 +98,9 @@ h6 {font-size: 1rem;}
   box-shadow: 0px 0px 5px 1px grey inset;
 }
 
+/* 
+  Link styles
+*/
 .link {
   text-decoration: none;
   color: blue;

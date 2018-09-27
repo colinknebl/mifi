@@ -1,0 +1,53 @@
+.BudgetGroup {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0px 0px 10px -3px var(--font-color);
+    padding: 1rem;
+    min-width: 500px;
+    position: relative;
+    display: grid;
+    grid-template-columns: var(--BudgetGroupGridCols);
+    grid-gap: var(--BudgetGroupGridGap);
+    grid-template-areas: 
+        'header planned received'
+        'list list list'
+    ;
+}
+
+.BudgetGroup__header {
+    /* display: inline-block; */
+    grid-area: header;
+}
+
+.BudgetGroup__column--right {
+    text-align: right;
+}
+
+.column-header__planned {
+    /* grid-area: planned; */
+}
+
+.column-header__received {
+    /* grid-area: received; */
+}
+
+.BudgetGroup__line-item-list {
+    grid-area: list;
+}
+
+.BudgetGroup__add-item-btn {
+    border: none;
+    background: white;
+    position: relative;
+    left: -.5rem;
+    font-size: 1rem;
+    color: var(--blue);
+    cursor: pointer;
+    justify-self: start;
+}
+.BudgetGroup__add-item-btn:hover {
+    color: var(--dark-blue);
+}
+
+/* ================================================= */
+

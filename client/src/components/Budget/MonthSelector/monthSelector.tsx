@@ -6,9 +6,9 @@ class MonthSelector extends React.Component {
     
   public render() {
     return (
-      <section className="MonthSelector">
-        <p>Month Selector</p>
-      </section>
+      <div className="MonthSelector">
+        <h2 className="MonthSelector__month"><span className="font--dark">September</span> <span className="font--light">2018</span></h2>
+      </div>
     );
   }
 }

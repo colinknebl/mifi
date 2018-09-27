@@ -1,9 +1,32 @@
 .Budget {
-	position: relative;
 	display: grid;
-	grid-template-columns: minmax(max-content, 250px) 6fr 3fr;;
+	grid-gap: 1rem;
+	grid-template-columns: 1fr minmax(min-content, 350px);
+	/* grid-template-rows: 1fr 10fr; */
 	grid-template-areas:
-		'sidebar header header'
-		'sidebar main-content summary'
+		'BudgetPageHeader BudgetPageHeader'
+		'BudgetGroupList BudgetGraphSection'
 	;
+}
+
+.BudgetGroupList {
+	display: grid;
+	grid-gap: 1rem;
+}
+
+@media screen and (max-width: 1000px) {
+	/* .Budget {
+		grid-template-columns: minmax(max-content, 60px) 6fr 3fr;
+	} */
+}
+
+@media screen and (max-width: 800px) {
+	/* .Budget {
+		grid-template-columns: minmax(max-content, 60px) auto;
+		grid-template-areas:
+			'sidebar header'
+			'sidebar summary'
+			'sidebar budget-group-list'
+		;
+	} */
 }

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import './listItem.css';
 
-interface Props {
+interface IProps {
     fontAwesomeIcon: string;
     liClassName: string;
     linkClassName: string;
@@ -12,7 +12,7 @@ interface Props {
     titleClass: string;
 }
 
-export default function ListItem(props: Props) {
+export default function ListItem(props: IProps) {
     const { fontAwesomeIcon, liClassName, title, linkClassName, linkTo, titleClass } = props;
 	return (
 		<li className={liClassName} title={title}>
