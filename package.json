@@ -23,6 +23,7 @@
   "dependencies": {
     "@types/react-fontawesome": "^1.6.4",
     "@types/react-router-dom": "^4.3.1",
+    "assert": "^1.4.1",
     "express": "^4.16.3",
     "font-awesome": "^4.7.0",
     "mongodb": "^3.1.6",
