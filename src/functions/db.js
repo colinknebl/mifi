@@ -1,7 +1,7 @@
 const MongoClient   = require('mongodb').MongoClient,
       ObjectId      = require('mongodb').ObjectId,
       assert        = require('assert'),
-      mongoAtlasUrl = 'mongodb://colinknebl:special25@wodapp-shard-00-00-ihelb.mongodb.net:27017,wodapp-shard-00-01-ihelb.mongodb.net:27017,wodapp-shard-00-02-ihelb.mongodb.net:27017/wodapp?ssl=true&replicaSet=wodapp-shard-0&authSource=admin';
+      mongoAtlasUrl = 'mongodb://colinknebl:%^TYGHBN56tyghbn@ds115963.mlab.com:15963/mifin';
 
 exports.handler = function(event, context, callback) {
 
