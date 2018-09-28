@@ -4,8 +4,8 @@
   "description": "Personal Finance App",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "deploy": "npm install && cd client/ && npm install &$ npm run build",
+    "netlify:deploy": "npm run build:functions && npm run build:client",
+    "build:functions": "grunt",
     "build:client": "cd client/ && npm run build",
     "start": "node server/server.js",
     "start-api": "nodemon api/api.js"
@@ -21,10 +21,11 @@
   },
   "homepage": "https://github.com/colinknebl/mifi#readme",
   "dependencies": {
-    "express": "^4.16.3",
     "@types/react-fontawesome": "^1.6.4",
     "@types/react-router-dom": "^4.3.1",
+    "express": "^4.16.3",
     "font-awesome": "^4.7.0",
+    "netlify-lambda": "^0.4.0",
     "react": "^16.5.1",
     "react-dom": "^16.5.1",
     "react-router-dom": "^4.3.1",
@@ -35,6 +36,9 @@
     "@types/node": "^10.9.4",
     "@types/react": "^16.4.14",
     "@types/react-dom": "^16.0.7",
+    "grunt": "^1.0.3",
+    "grunt-contrib-clean": "^2.0.0",
+    "grunt-contrib-copy": "^1.0.0",
     "typescript": "^3.0.3"
   }
 }
