@@ -1,7 +1,7 @@
 exports.handler = function(event, context, callback) {
     callback(null, {
-    statusCode: 200, 
-    body: {
+        statusCode: 200, 
+        body: JSON.stringify({
             fetchedUser: null,
             isLoading: true,
             user: {
@@ -93,7 +93,7 @@ exports.handler = function(event, context, callback) {
                     ]
                 }
             }
-        }
+        })
     });
 }
 
