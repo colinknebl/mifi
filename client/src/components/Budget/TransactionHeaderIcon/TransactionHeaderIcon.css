@@ -1,0 +1,19 @@
+.TransactionHeaderIcon {
+    border: none;
+    background: transparent;
+    color: var(--dark-orange);
+    cursor: pointer;
+    grid-area: options;
+    justify-self: end;
+    align-self: center;
+}
+
+.TransactionHeaderIcon:hover {
+    color: var(--light-orange);
+}
+
+.fa-credit-card {
+    font-size: 50px;
+    position: relative;
+    z-index: -1;
+}

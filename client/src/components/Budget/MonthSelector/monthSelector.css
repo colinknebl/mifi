@@ -1,3 +1,8 @@
 .MonthSelector__month {
     margin-bottom: 1rem;
+    grid-area: month-selector;
+}
+
+.MonthSelector__left-to-budget {
+    grid-area: left-to-budget;
 }

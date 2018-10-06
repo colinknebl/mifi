@@ -1,18 +1,26 @@
 import * as React from 'react';
-
 import './Dashboard.css';
 
-class Dashboard extends React.Component {
-    public routerProps: any;
-    constructor(routerProps: any) {
-        super(routerProps);
-        this.routerProps = routerProps
+import LinkPlaid from '../../components/LinkPlaid/LinkPlaid';
+
+interface IState {
+    state: any;
+}
+
+class Dashboard extends React.Component<IState> {
+    constructor(props: any) {
+        super(props);
     }
 
     public render() {
 
         return (
-            <h1>Dashboard</h1>
+            <React.Fragment>
+                <h1>Dashboard</h1>
+                <LinkPlaid {...{
+                    state: this.props.state
+                }} />
+            </React.Fragment>
         );
     }
 }

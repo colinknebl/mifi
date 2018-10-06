@@ -1,12 +1,18 @@
 import * as React from 'react';
 import './budget.css';
 
+import BudgetGraph from '../../components/Budget/BudgetGraph/BudgetGraph';
 import BudgetGroup from '../../components/Budget/BudgetGroup/BudgetGroup';
 import BudgetPageHeader from '../../components/Budget/BudgetPageHeader/BudgetPageHeader';
+import Transactions from '../../components/Budget/Transactions/Transactions';
 
 import { IBudgetGroup } from '../../mifi';
 
-class Budget extends React.Component {
+interface IState {
+  state: any
+}
+
+class Budget extends React.Component<IState> {
   public user: any;
   public methods: any;
   private finances: any;
@@ -21,16 +27,20 @@ class Budget extends React.Component {
   public render() {
 
     const { budgetGroups } = this.finances.budget;
+    const displayInBudgetPlusSection = this.props.state.app.budget.budgetPlus.display;
 
     return (
       <section className="Budget">
-        <BudgetPageHeader />
+        <BudgetPageHeader {...{
+          methods: this.methods
+        }} />
         
         <ul className="BudgetGroupList">
           {
             budgetGroups.map((group: IBudgetGroup, num: number) => {
               return (
                 <BudgetGroup key={num} methods={this.methods} {...{
+                  minimized: group.minimized,
                   addable: group.addable,
                   draggable: group.draggable,
                   header: group.header,
@@ -43,12 +53,17 @@ class Budget extends React.Component {
             })
           }
         </ul>
-
-        <section>
-          <h4>graph section</h4>
-        </section>
+        {this.showInBudgetPlus(displayInBudgetPlusSection)}
       </section>
     );
+  }
+
+  private showInBudgetPlus(displayInBudgetPlusSection) {
+    if (displayInBudgetPlusSection === 'Transactions') {
+      return <Transactions />
+    } else {
+      return <BudgetGraph />
+    }
   }
 }
 

@@ -11,18 +11,30 @@ import CreditMonitoringPage from '../CreditMonitoringPage/CreditMonitoringPage';
 
 import { IBudgetGroupLineItem } from '../../mifi';
 
+declare var window;
+
 class App extends React.Component {
 
     public state = {
+        // TODO: move these into state.app
         fetchedUser: null,
         isLoading: true,
+        // =============================
+        app: {
+            budget: {
+                budgetPlus: {
+                    display: 'Graph'
+                }
+            }
+        },
         user: {
             firstName: 'Colin',
             lastName: 'Knebl',
             email: 'colin.knebl@outlook.com',
             settings: {
                 currency: 'USD'
-            }
+            },
+            accessToken: ['access-sandbox-e94b818a-24be-4fa6-b64f-1abe2a082b18']
         },
         finances: {
             banks: [
@@ -49,6 +61,7 @@ class App extends React.Component {
                         header: 'income',
                         draggable: true,
                         addable: true,
+                        minimized: false,
                         maxLineItems: 20,
                         listPosition: 0,
                         lineItems: [
@@ -76,6 +89,7 @@ class App extends React.Component {
                         header: 'tithing',
                         draggable: true,
                         addable: true,
+                        minimized: false,
                         maxLineItems: 20,
                         listPosition: 1,
                         lineItems: [
@@ -91,6 +105,7 @@ class App extends React.Component {
                         header: 'retirement',
                         draggable: true,
                         addable: true,
+                        minimized: true,
                         maxLineItems: 20,
                         listPosition: 2,
                         lineItems: [
@@ -113,7 +128,9 @@ class App extends React.Component {
             sum: this.sum.bind(this),
             formatAmount: this.formatAmount.bind(this),
             onLineItemTitleChange: this.onLineItemTitleChange.bind(this),
-            addBudgetGroupLineItem: this.addBudgetGroupLineItem.bind(this)
+            addBudgetGroupLineItem: this.addBudgetGroupLineItem.bind(this),
+            updateDisplayedInBudgetPlus: this.updateDisplayedInBudgetPlus.bind(this),
+            updateBudgetGroupLineItemPosition: this.updateBudgetGroupLineItemPosition.bind(this)
         }
     }
 
@@ -122,27 +139,24 @@ class App extends React.Component {
         super(routerProps);
         this.routerProps = routerProps;
 
-        if (!this.state.fetchedUser) {
-            fetch('https://jsonplaceholder.typicode.com/todos/1')
-                .then(json => json.json())
-                .then(json => {
-                    setTimeout(() => {
-                        this.setState({fetchedUser: json, isLoading: false})
-                    }, 1000)
-                })
-        }
+        // if (!this.state.fetchedUser) {
+        //     fetch('http://localhost:3001/getUser')
+        //         .then(data => data.json())
+        //         .then(user => {
+        //             console.log('data :', user);
+        //         })
+        // }
+
+        // FIXME: don't forget to delete this
+        window.state = this.state;
     }
 
-    // public shouldComponentUpdate() {
-    //     return true || false
-    // }
-
     public render() {
-        if (this.state.isLoading) {
-            return (
-                <h1>Loading app data...</h1>
-            )
-        }
+        // if (this.state.isLoading) {
+        //     return (
+        //         <h1>Loading app data...</h1>
+        //     )
+        // }
 
         return (
             <main className="App">
@@ -161,7 +175,10 @@ class App extends React.Component {
                             }} {...{state: this.state}} />} />
 
                             <Route exact={true} path="/app/credit-monitoring" render={props => <CreditMonitoringPage {...props} />} />
-                            <Route exact={true} path="/app/dashboard" render={props => <Dashboard {...props} />} />
+                            <Route exact={true} path="/app/dashboard" render={props => <Dashboard {...{
+                                props,
+                                state: this.state
+                            }} />} />
                             <Redirect to="/app/dashboard" />
                         </Switch>
                     </Router>
@@ -252,6 +269,65 @@ class App extends React.Component {
             }
         });
     }
+
+    public updateDisplayedInBudgetPlus(event) {
+        event.preventDefault();
+        const app = this.state.app;
+            app.budget.budgetPlus.display = event.target.getAttribute('title') || 'Graph';
+
+        this.setState(() => {
+            return {
+                app: {...app}
+            }
+        });     
+    }
+
+    public updateBudgetGroupLineItemPosition(event) {
+        const title = event.target.getAttribute('title'),
+            elementPosition = parseInt(event.target.parentNode.getAttribute('data-listposition'), 10),
+            budgetGroup = event.target.parentNode.parentNode.parentNode,
+            budgetGroupPosition = parseInt(budgetGroup.getAttribute('data-listposition'), 10),
+            budgetGroupListItems = Array.from(event.target.parentNode.parentNode.childNodes),
+            budgetGroupLineItemsState = this.state.finances.budget.budgetGroups[budgetGroupPosition].lineItems,
+            finances = this.state.finances;
+        let removedElement;
+
+        try {
+            if (title === 'Move up list' && elementPosition !== 0) {
+                removedElement = removeElementFromArray();
+                budgetGroupLineItemsState.splice(elementPosition - 1, 0, removedElement);
+                budgetGroupLineItemsState.map((item: any, index: number) => {
+                    item.listPosition = index;
+                    return item;
+                });
+                setLineItemsState.call(this)
+            } else if (title === 'Move down list' && elementPosition !== budgetGroupListItems.length - 1) {
+                removedElement = removeElementFromArray();
+                budgetGroupLineItemsState.splice(elementPosition + 1, 0, removedElement);
+                budgetGroupLineItemsState.map((item: any, index: number) => {
+                    item.listPosition = index;
+                    return item;
+                });
+                setLineItemsState.call(this)
+            } else {
+                throw new Error('Cannot move item')
+            }
+        } catch(err) {
+            console.error('Error in updateBudgetGroupLineItemPosition:', err);
+        }
+
+        function removeElementFromArray() {
+            return budgetGroupLineItemsState.splice(elementPosition, 1)[0];
+        }
+
+        function setLineItemsState(this: App) {
+            this.setState(() => {
+                return {
+                    finances: {...finances}
+                }
+            })
+        }
+    }
 }
 
-export default App;
+export default App; 

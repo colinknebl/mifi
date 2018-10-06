@@ -1,29 +1,20 @@
 const MongoClient   = require('mongodb').MongoClient,
-      ObjectId      = require('mongodb').ObjectId,
-      assert        = require('assert'),
-      mongoUrl      = 'mongodb://test:ASDF1234asdf@ds115963.mlab.com:15963/mifi';
+	ObjectId      = require('mongodb').ObjectId,
+	assert        = require('assert'),
+	mongoUrl      = 'mongodb+srv://test:t6hlm2E3C8P1ypti@cluster0-97izx.mongodb.net/test?retryWrites=true';
 
-MongoClient.connect(mongoUrl, (err, db) => {
+MongoClient.connect(mongoUrl, { useNewUrlParser: true }, function(err, client) {
+	assert.equal(null, err);
+	
+	const query = {
+		firstName: "Colin"
+	}
 
-    assert.equal(null, err); 
+   const collection = client.db("mifi").collection("users");
+   collection.find(query).toArray((err, data) => {
+        if (err) console.error(err);
 
-    db.collection('users').find({
-        "name": "Leanne Graham"
-    })
-    .toArray((err, user) => {
-        console.log('user :', user);
-        if (user.length === 0) {
-            // callback(null, {
-            //     statusCode: 200,
-            //     body: 'error getting user: Leanne Graham'
-            // });
-        }
-        else {
-            // callback(null, {
-            //     statusCode: 200,
-            //     body: JSON.stringify(user)
-            // });
-        }
-      });
-    db.close();
+        console.log('data :', data);
+   })
+   client.close();
 });

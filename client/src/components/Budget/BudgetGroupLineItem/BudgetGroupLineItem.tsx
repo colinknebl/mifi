@@ -13,13 +13,12 @@ class BudgetGroupLineItem extends React.Component {
     }
     
     public render() {
-
-        const { title, methods: { financial: fn } } = this.props,
+        const { title, listPosition, methods: { financial: fn } } = this.props,
               planned = fn.formatAmount(this.props.planned),
               actual = fn.formatAmount(this.props.actual);
 
         return (
-            <li className="BudgetGroupLineItem js-BudgetGroupLineItem--parent">
+            <li className="BudgetGroupLineItem js-BudgetGroupLineItem--parent" data-listposition={listPosition}>
                 <input type="text" 
                     className="BudgetGroupLineItem__input BudgetGroupLineItem--editable js-BudgetGroupLineItem--child"
                     data-groupnumber={this.props.budgetGroupBelongsTo} 
@@ -35,6 +34,9 @@ class BudgetGroupLineItem extends React.Component {
                     value={actual}
                     readOnly={true} />
                 <span id={this.id} className="BudgetGroupLineItem__progress" />
+                <button title="Delete from list">trash</button>
+                <button onClick={fn.updateBudgetGroupLineItemPosition} title="Move up list">+</button>
+                <button onClick={fn.updateBudgetGroupLineItemPosition} title="Move down list">-</button>
             </li>
         );
     }

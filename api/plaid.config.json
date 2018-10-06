@@ -1,0 +1,10 @@
+{
+    "client_id": "5ba69366aaddb00012d60868",
+    "public_key": "7ebb37e48ceec1f896d8cccad57c1b",
+    "secrets": {
+        "sandbox": "68716b14af74931c4c6f92ef4f40df",
+        "development": "dbc11e0c176f604a0523e66e7301f7",
+        "production": null
+    },
+    "environment": "development"
+}

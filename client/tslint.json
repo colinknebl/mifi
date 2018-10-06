@@ -12,6 +12,8 @@
     "jsdoc-format": false,
     "no-console": false,
     "object-literal-sort-keys": false,
-    "one-variable-per-declaration": false
+    "one-variable-per-declaration": false,
+    "variable-name": [false],
+    "prefer-const": true
   }
 }

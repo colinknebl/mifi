@@ -2,6 +2,7 @@ export interface IBudgetGroup {
     header: string;
     draggable: boolean;
     addable: boolean;
+    minimized: boolean;
     maxLineItems: number;
     lineItems: IBudgetGroupLineItem[];
     calcTotals: boolean;

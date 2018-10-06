@@ -1,11 +1,17 @@
 const express = require('express'),
-      api = express();
+      api = express(),
+      fetch = require('node-fetch');
 
-api.get('/test', (req, res) => {
-  res.json({
-    success: true,
-    test: true
-  })
-})
+module.exports = api.get('/getUser', (req, res) => {
 
-module.exports = api
+  fetch('http://localhost:9000/db')
+    .then(json => json.json())
+    .then(user => {
+        console.log('user', user);
+
+        res.json({
+          user
+        });
+
+    });
+});
