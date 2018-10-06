@@ -1,4 +1,6 @@
 import * as React from 'react';
+
+import 'font-awesome/css/font-awesome.min.css';
 import './BudgetGroupLineItem.css';
 
 import { IBudgetGroupLineItem } from '../../../mifi';
@@ -34,9 +36,18 @@ class BudgetGroupLineItem extends React.Component {
                     value={actual}
                     readOnly={true} />
                 <span id={this.id} className="BudgetGroupLineItem__progress" />
-                <button title="Delete from list">trash</button>
-                <button onClick={fn.updateBudgetGroupLineItemPosition} title="Move up list">+</button>
-                <button onClick={fn.updateBudgetGroupLineItemPosition} title="Move down list">-</button>
+                <button
+                    className="BudgetGroupLineItem__options-btn BudgetGroupLineItem__options-btn--trash"
+                    onClick={fn.deleteBudgetGroupLineItem}
+                    title="Delete from list"><i className="fa fa-trash-o"/></button>
+                <button 
+                    className="BudgetGroupLineItem__options-btn BudgetGroupLineItem__options-btn--up"
+                    onClick={fn.updateBudgetGroupLineItemPosition} 
+                    title="Move up list"><i className="fa fa-plus" /></button>
+                <button 
+                    className="BudgetGroupLineItem__options-btn BudgetGroupLineItem__options-btn--down"
+                    onClick={fn.updateBudgetGroupLineItemPosition} 
+                    title="Move down list"><i className="fa fa-minus" /></button>
             </li>
         );
     }

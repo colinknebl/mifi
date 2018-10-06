@@ -18,3 +18,7 @@ export interface IBudgetGroupLineItem {
     budgetGroupBelongsTo: number;
     methods?: any;
 }
+
+export interface IReOrderLineItemsOptions {
+    updateFinancialState: boolean;
+}

@@ -9,7 +9,7 @@ import Dashboard from '../../pages/Dashboard/Dashboard';
 import Budget from '../budget/budget';
 import CreditMonitoringPage from '../CreditMonitoringPage/CreditMonitoringPage';
 
-import { IBudgetGroupLineItem } from '../../mifi';
+import { IBudgetGroupLineItem, IReOrderLineItemsOptions } from '../../mifi';
 
 declare var window;
 
@@ -130,7 +130,8 @@ class App extends React.Component {
             onLineItemTitleChange: this.onLineItemTitleChange.bind(this),
             addBudgetGroupLineItem: this.addBudgetGroupLineItem.bind(this),
             updateDisplayedInBudgetPlus: this.updateDisplayedInBudgetPlus.bind(this),
-            updateBudgetGroupLineItemPosition: this.updateBudgetGroupLineItemPosition.bind(this)
+            updateBudgetGroupLineItemPosition: this.updateBudgetGroupLineItemPosition.bind(this),
+            deleteBudgetGroupLineItem: this.deleteBudgetGroupLineItem.bind(this)
         }
     }
 
@@ -283,49 +284,111 @@ class App extends React.Component {
     }
 
     public updateBudgetGroupLineItemPosition(event) {
-        const title = event.target.getAttribute('title'),
-            elementPosition = parseInt(event.target.parentNode.getAttribute('data-listposition'), 10),
-            budgetGroup = event.target.parentNode.parentNode.parentNode,
-            budgetGroupPosition = parseInt(budgetGroup.getAttribute('data-listposition'), 10),
-            budgetGroupListItems = Array.from(event.target.parentNode.parentNode.childNodes),
-            budgetGroupLineItemsState = this.state.finances.budget.budgetGroups[budgetGroupPosition].lineItems,
-            finances = this.state.finances;
-        let removedElement;
-
         try {
+            const parents = this.getParents(event.target, ['BudgetGroup', 'BudgetGroupLineItem', 'BudgetGroupLineItem__options-btn']);
+            if (!parents) {
+                throw new Error('Unable to get parent elements of element clicked.');
+            }
+            const title = parents['BudgetGroupLineItem__options-btn'].getAttribute('title'),
+                elementPosition = parseInt(parents['BudgetGroupLineItem'].getAttribute('data-listposition'), 10),
+                budgetGroupListPosition = parseInt(parents['BudgetGroup'].getAttribute('data-listposition'), 10),
+                budgetGroupLineItemsState = this.state.finances.budget.budgetGroups[budgetGroupListPosition].lineItems,
+                [ removedElement ] = budgetGroupLineItemsState.splice(elementPosition, 1);
+
             if (title === 'Move up list' && elementPosition !== 0) {
-                removedElement = removeElementFromArray();
                 budgetGroupLineItemsState.splice(elementPosition - 1, 0, removedElement);
-                budgetGroupLineItemsState.map((item: any, index: number) => {
-                    item.listPosition = index;
-                    return item;
-                });
-                setLineItemsState.call(this)
-            } else if (title === 'Move down list' && elementPosition !== budgetGroupListItems.length - 1) {
-                removedElement = removeElementFromArray();
+                this.reOrderLineItems(budgetGroupListPosition, { updateFinancialState: true });
+            } else if (title === 'Move down list' && elementPosition !== budgetGroupLineItemsState.length - 1) {
                 budgetGroupLineItemsState.splice(elementPosition + 1, 0, removedElement);
-                budgetGroupLineItemsState.map((item: any, index: number) => {
-                    item.listPosition = index;
-                    return item;
-                });
-                setLineItemsState.call(this)
+                this.reOrderLineItems(budgetGroupListPosition, { updateFinancialState: true });
             } else {
                 throw new Error('Cannot move item')
             }
         } catch(err) {
             console.error('Error in updateBudgetGroupLineItemPosition:', err);
         }
+    }
 
-        function removeElementFromArray() {
-            return budgetGroupLineItemsState.splice(elementPosition, 1)[0];
+    public deleteBudgetGroupLineItem(event) {
+        try {
+            const { BudgetGroup, BudgetGroupLineItem: lineItem }: any = this.getParents(event.target, ['BudgetGroup', 'BudgetGroupLineItem']);
+            if (!lineItem ) {
+                throw new Error('Unable to get parent elements of element clicked.');
+            }
+            const lineItemListPosition = parseInt(lineItem.getAttribute('data-listposition'), 10),
+                budgetGroupListPosition = parseInt(BudgetGroup.getAttribute('data-listposition'), 10),
+                budgetGroupLineItemsInState = this.state.finances.budget.budgetGroups[budgetGroupListPosition].lineItems;
+
+            budgetGroupLineItemsInState.splice(lineItemListPosition, 1);
+            this.reOrderLineItems(budgetGroupListPosition, { updateFinancialState: true });
+        } catch(err) {
+            console.error('Error in deleteBudgetGroupLineItem:', err)
+        }
+    }
+
+    /**
+     * Returns an object of HTML elements whose classes match a class in the elementClassNames array
+     * @param target HTML event.target from click event
+     * @param elementClassNames array of class names that are desired
+     */
+    private getParents(target: HTMLElement, elementClassNames: string[]) {
+        const parents: HTMLElement[] = [target];
+
+        function getParent(el: HTMLElement) {
+            if (el.parentElement !== null) {
+                parents.push(el.parentElement);
+                getParent(el.parentElement);
+            }
         }
 
-        function setLineItemsState(this: App) {
-            this.setState(() => {
-                return {
-                    finances: {...finances}
+        try {
+            getParent(target);
+
+            const desiredElements = parents.filter(el => {
+                let match = false;
+                elementClassNames.forEach(className => {
+                    if (el.classList.contains(className)) {
+                        match = true;
+                    }
+                });
+                if (match) {
+                    return el;
+                } else {
+                    return null;
                 }
-            })
+            });
+
+            return desiredElements.reduce((prev, el) => {
+                elementClassNames.forEach(className => {
+                    if (el.classList.contains(className)) {
+                        prev[className] = el;
+                    }
+                });
+                return prev;
+            }, {});
+        } catch(err) {
+            console.error('Error in getting parents of element clicked:', err);
+            return null;
+        }
+    }
+
+    private setFinancialState(finances) {
+        this.setState(() => {
+            return {
+                finances: {...finances}
+            }
+        });
+    }
+
+    private reOrderLineItems(budgetGroupNum: number, options: IReOrderLineItemsOptions) {
+        const finances = this.state.finances;
+        finances.budget.budgetGroups[budgetGroupNum].lineItems.map((item: any, index: number) => {
+            item.listPosition = index;
+            return item;
+        });
+
+        if (options.updateFinancialState) {
+            this.setFinancialState(finances);
         }
     }
 }
