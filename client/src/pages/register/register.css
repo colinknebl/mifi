@@ -1,5 +1,6 @@
 .Register {
-  background: var(--background-gradient);
+  background: var(--white-texture-img);
+  background-size: 100%;
   box-sizing: border-box;
   min-height: 100vh;
   display: grid;

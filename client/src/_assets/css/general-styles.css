@@ -12,7 +12,7 @@
   outline-color: var(--blue);
 }
 body {
-  background: whitesmoke;
+  background: linear-gradient(white, whitesmoke);
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -30,6 +30,13 @@ h3 {font-size: 2.2rem;}
 h4 {font-size: 1.7rem;}
 h5 {font-size: 1.2rem;}
 h6 {font-size: 1rem;}
+
+/* 
+  Logo (SVG) styles
+*/
+svg {
+  color: var(--pri-color);
+}
 
 /* 
   Font styles
@@ -52,15 +59,15 @@ h6 {font-size: 1rem;}
   border-radius: 40px;
   outline: none;
   cursor: pointer;
-  transition: box-shadow .25s;
-}
-.btn:hover {
-  box-shadow: var(--box-shadow);
 }
 .btn-pri {
   color: whitesmoke;
   background: var(--pri-color);
   border: 3px solid var(--pri-color);
+  transition: box-shadow .25s;
+}
+.btn-pri:hover {
+  box-shadow: var(--box-shadow);
 }
 .btn-pri:active {
   color: var(--pri-color);
@@ -75,6 +82,14 @@ h6 {font-size: 1rem;}
 .btn-sec:active {
   color: whitesmoke;
   background: var(--pri-color);
+}
+.btn-orange {
+  background: var(--light-orange);
+  color: whitesmoke;
+  transition: background .25s;
+}
+.btn-orange:hover {
+  background: var(--dark-orange);
 }
 
 /* 

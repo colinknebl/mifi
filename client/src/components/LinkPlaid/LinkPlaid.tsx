@@ -5,10 +5,11 @@ declare var window;
 export default class LinkPlaid extends React.Component {
     public plaid: any;
     private access_token: string;
+    // @ts-ignore
+    private item_id: string;
 
     constructor(props) {
         super(props);
-        console.log('props :', props);
 
         this.access_token = props.state.user.accessToken[0];
     }
@@ -30,19 +31,42 @@ export default class LinkPlaid extends React.Component {
         this.plaid = window.Plaid.create({
             clientName: 'Plaid Quickstart',
             env: 'development', // production || sandbox || development
-            key: '7ebb37e48ceec1f896d8cccad57c1b',
-            product: ['transactions'],
+            key: '8a8e45e2715eb1df253d38aafb4460',
+            product: ['transactions', 'auth'],
             // Optional – use webhooks to get transaction and error updates
             // webhook: 'https://requestb.in',
-            onLoad: () => {
-                // Optional, called when Link loads
-                console.log('onLoad');
-            },
+            // onLoad: () => {},
+            // onExit: (err, metadata) => { },
+            // onEvent: (eventName, metadata) => { },
             onSuccess: (public_token, metadata) => {
                 // Send the public_token to your app server.
                 // The metadata object contains info about the institution the
                 // user selected and the account ID or IDs, if the
                 // Select Account view is enabled.
+                /**
+                 * @param: metadata
+                 * account: {
+                 *      id: ,
+                 *      mask: ,
+                 *      name: ,
+                 *      subtype: ,
+                 *      type:
+                 * },
+                 * account_id: ,
+                 * accounts: [
+                 *      id: ,
+                 *      mask: ,
+                 *      name: ,
+                 *      subtype: ,
+                 *      type:
+                 * ],
+                 * institution: {
+                 *      institution_id: ,
+                 *      name: 
+                 * },
+                 * link_session_id: ,
+                 * public_token: 
+                 */
                 const options = {
                     method: 'POST',
                     // mode: 'no-cors',
@@ -52,14 +76,14 @@ export default class LinkPlaid extends React.Component {
                     },
                     body: JSON.stringify({public_token})
                 }
-                console.log('options :', options);
                 fetch('http://localhost:3001/plaid/get_access_token/', options)
                     .then(json => json.json())
                     .then(data => {
-                        console.log('data :', data)
+                        console.log('data :', data);
+                        // Save the access_token and item_id in a secure datastore, 
+                        // as they’re used to access Item data and identify webhooks, respectively.
                         this.access_token = data.access_token;
-                        // const access_token = data.access_token,
-                            // item_id = data.item_id;
+                        this.item_id = data.item_id;
                         
                         fetch('http://localhost:3001/plaid/auth')
                             .then(json => json.json())
@@ -67,33 +91,6 @@ export default class LinkPlaid extends React.Component {
                                 console.log('auth :', auth);
                             })
                     })
-
-            console.log('public_token :', public_token);
-            console.log('metadata :', metadata);
-            },
-            onExit: (err, metadata) => {
-                console.log('onExit', metadata);
-                // The user exited the Link flow.
-              if (err != null) {
-                // The user encountered a Plaid API error prior to exiting.
-              }
-                // metadata contains information about the institution
-                // that the user selected and the most recent API request IDs.
-                // Storing this information can be helpful for support.
-            },
-            onEvent: (eventName, metadata) => {
-                // Optionally capture Link flow events, streamed through
-                // this callback as your users connect an Item to Plaid.
-                // For example:
-                // eventName = "TRANSITION_VIEW"
-                // metadata  = {
-                //   link_session_id: "123-abc",
-                //   mfa_type:        "questions",
-                //   timestamp:       "2017-09-14T14:42:19.350Z",
-                //   view_name:       "MFA",
-                // }
-                console.log('eventName :', eventName);
-                console.log('metadata :', metadata);
             }
           });
     }

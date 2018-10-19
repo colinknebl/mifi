@@ -1,10 +1,22 @@
 {
-    "client_id": "5ba69366aaddb00012d60868",
-    "public_key": "7ebb37e48ceec1f896d8cccad57c1b",
-    "secrets": {
-        "sandbox": "68716b14af74931c4c6f92ef4f40df",
-        "development": "dbc11e0c176f604a0523e66e7301f7",
-        "production": null
+    "outlook": {
+        "client_id": "5ba69366aaddb00012d60868",
+        "public_key": "7ebb37e48ceec1f896d8cccad57c1b",
+        "secrets": {
+            "sandbox": "68716b14af74931c4c6f92ef4f40df",
+            "development": "dbc11e0c176f604a0523e66e7301f7",
+            "production": null
+        },
+        "environment": "sandbox"
     },
-    "environment": "development"
+    "hotmail": {
+        "client_id": "5bb94b79a8a54c00122828b8",
+        "public_key": "8a8e45e2715eb1df253d38aafb4460",
+        "secrets": {
+            "sandbox": "1f6c10bc96915e6ac846212ed8fa33",
+            "development": "80301e109c00000284272bc54db332",
+            "production": null
+        },
+        "environment": "development"
+    }
 }

@@ -5,12 +5,14 @@
  * 1. sign in
  * 2. link account with Plaid
  * 
+ * dev access_token: 'access-development-84ecf1ba-9cce-4b68-ab34-df51f3bb3e65'
+ * dev item_id: 'JXeznEjAp3UKBXvJZZrOCKpRrBAmY9Sbn33MN'
  */
 
 const express = require('express'),
 	api = express(),
 	Plaid = require('plaid'),
-	plaidConfig = require('../plaid.config'),
+	plaidConfig = require('../plaid.config').hotmail,
 	PLAID_CLIENT_ID = process.env.PLAID_CLIENT_ID || plaidConfig.client_id,
 	PLAID_ENV = process.env.PLAID_ENV || plaidConfig.environment,
 	PLAID_PUBLIC_KEY = process.env.PLAID_PUBLIC_KEY || plaidConfig.public_key,
@@ -24,7 +26,8 @@ const express = require('express'),
 		return plaidConfig.secrets.sandbox;
 		}
 	})(),
-	PLAID_SECRET = process.env.PLAID_SECRET || secret;
+	PLAID_SECRET = process.env.PLAID_SECRET || secret,
+	fakeData = require('../../sandbox/fakeTransactionData');
 
 // Initialize the Plaid client
 var client = new Plaid.Client(
@@ -44,7 +47,7 @@ var ITEM_ID = null;
 module.exports = api.post('/plaid/get_access_token', function(req, res, next) {
 
 	const PUBLIC_TOKEN = req.body.public_token;
-	console.log('PUBLIC_TOKEN', PUBLIC_TOKEN);
+	console.log('PUBLIC_TOKEN :', PUBLIC_TOKEN);
 
 	client.exchangePublicToken(PUBLIC_TOKEN, function(error, tokenResponse) {
 		if (error != null) {
@@ -65,6 +68,29 @@ module.exports = api.post('/plaid/get_access_token', function(req, res, next) {
 	});
 });
 
+/**
+ * Check balances in real time to prevent non-sufficient funds fees.
+ */
+module.exports = api.get('/plaid/balance', function(req, res, next) {
+	client.getAuth(ACCESS_TOKEN, function(error, authResponse) {
+		if (error) {
+			console.log('error :', error);
+			return res.json({
+				error: error,
+			});
+		}
+		// console.log('authResponse :', authResponse);
+		res.json({
+			error: null, 
+			auth: authResponse
+		});
+	});
+});
+
+/**
+ * Retrieve account and routing numbers for ACH authentication. 
+ * No micro-deposits required.
+ */
 module.exports = api.get('/plaid/auth', function(req, res, next) {
 	client.getAuth(ACCESS_TOKEN, function(error, authResponse) {
 		if (error) {
@@ -81,6 +107,10 @@ module.exports = api.get('/plaid/auth', function(req, res, next) {
 	});
 });
 
+/**
+ * Clean transaction data going back as far as 24 months. 
+ * Transaction data may include context such as geolocation, merchant, and category information.
+ */
 module.exports = api.get('/plaid/transactions', (req, res, next) => {
 	// Pull transactions for the Item for the last 30 days
 	var startDate = '2018-09-01';// moment().subtract(30, 'days').format('YYYY-MM-DD');
@@ -131,4 +161,12 @@ module.exports = api.post('/api/get/transactions', (req, res, next) => {
 				});
 			}
 	});
+});
+
+
+module.exports = api.get('/api/get_fake_data', (req, res, next) => {
+	res.json({
+		error: false,
+		transactions: fakeData
+	})
 });

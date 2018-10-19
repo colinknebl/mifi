@@ -1,74 +1,70 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 
+import SVG from '../../components/SVGLogo/SVGLogo';
+
 // import { AppContext } from '../../app/state/index'
 import './login.css';
 
 class Login extends React.Component<any, any> {
-  public routerProps: any;
-  constructor(routerProps: any) {
-    super(routerProps);
-    this.routerProps = routerProps;
+	public props: any;
 
+	public render() {
 
-    this.state = {
-      form: {
-        password: '',
-        username: ''
-      }
-    }
-  }
+		const { loginFormChangeHandler, loginFormSubmitHandler } = this.props.methods.website;
+		const { usernameVal, passwordVal } = this.props.inputValues;
 
-  public render() {
-    return (
-      <div className="Login">
-        <section className="login--content-container">
-          <h1 className="login--title">Login</h1>
-          <hr />
-          <div className="login--grid-container">
-            <form id="login--form" onSubmit={this.handleSubmit}>
-              <input
-                type="text"
-                id="login--user-input"
-                className="login--input input input-text"
-                value={this.state.form.username}
-                onChange={this.handleNameChange}
-                placeholder="Username / Email" />
-              <input
-                type="password"
-                id="login--pass-input"
-                className="login--input input input-text"
-                value={this.state.form.password}
-                placeholder="Password" />
-              <input
-                type="submit"
-                id="login--submit-btn"
-                className="login--input input btn btn-pri login--submit-btn"
-                value="Submit" />
-            </form>
-            <Link to="/" id="login--cancel-link" className="login--link">
-              <span>Cancel</span>
-            </Link>
-            <Link to="/register" id="login--register-link" className="login--link">
-              <span>Register</span>
-            </Link>
-          </div>
-        </section>
-      </div>
-    );
-  }
-
-  private handleSubmit = (event: any) => {
-    event.preventDefault();
-  }
-
-  private handleNameChange = (event: any) => {
-    this.setState({
-      form: { 
-        username: event.target.value
-      }
-    })
-  }
+		return (
+			<div className="Login">
+				<div className="Login__content-container">
+					<div className="login__logo-container">
+						<SVG />
+					</div>
+					<section className="login--form-container">
+						<h1 className="login--title">Sign In</h1>
+						<hr />
+						<div className="login--grid-container">
+							<form id="login--form" onSubmit={loginFormSubmitHandler} >
+							<input
+								type="text"
+								data-type="username"
+								id="login--user-input"
+								className="login--input input input-text"
+								value={usernameVal}
+								onChange={loginFormChangeHandler}
+								placeholder="Username / Email" />
+							<input
+								type="password"
+								data-type="password"
+								id="login--pass-input"
+								className="login--input input input-text"
+								value={passwordVal}
+								onChange={loginFormChangeHandler}
+								placeholder="Password" />
+							<input
+								type="submit"
+								id="login--submit-btn"
+								className="login--input input btn btn-orange login--submit-btn"
+								value="Sign In" />
+							</form>
+							{/* <Link to="/" id="login--cancel-link" className="login--link">
+								<span>Cancel</span>
+							</Link>
+							<Link to="/register" id="login--register-link" className="login--link">
+								<span>Register</span>
+							</Link> */}
+						</div>
+						<hr />
+						<p className="login__form-footer">New to MiFi? 
+							<Link to="/register" id="login--register-link" className="login--link">
+								<span> Sign Up Now</span>
+							</Link>
+						</p>
+					</section>
+				</div>
+			</div>
+		);
+	}
 }
 
 export default Login;

@@ -69,19 +69,28 @@ class App extends React.Component {
                                 title: '2020 Paycheck 1 (9/6)',
                                 planned: '197740',
                                 actual: '197740',
-                                listPosition: 0
+                                listPosition: 0,
+                                note: null,
+                                assignedTransactions: null,
+                                isFund: false
                             },
                             {
                                 title: '2020 Paycheck 2 (9/20)',
                                 planned: '163742',
                                 actual: '163742',
-                                listPosition: 1
+                                listPosition: 1,
+                                note: null,
+                                assignedTransactions: null,
+                                isFund: false
                             },
                             {
                                 title: 'Drill Pay 9/18',
                                 planned: '37689',
                                 actual: '37689',
-                                listPosition: 2
+                                listPosition: 2,
+                                note: null,
+                                assignedTransactions: null,
+                                isFund: false
                             }
                         ]
                     },
@@ -97,7 +106,10 @@ class App extends React.Component {
                                 title: 'Tithing',
                                 planned: '000',
                                 actual: '000',
-                                listPosition: 0
+                                listPosition: 0,
+                                note: null,
+                                assignedTransactions: null,
+                                isFund: false
                             }
                         ]
                     },
@@ -113,7 +125,10 @@ class App extends React.Component {
                                 title: 'Retirement Fund',
                                 planned: '000',
                                 actual: '000',
-                                listPosition: 0
+                                listPosition: 0,
+                                note: null,
+                                assignedTransactions: null,
+                                isFund: false
                             }
                         ]
                     }
@@ -139,6 +154,12 @@ class App extends React.Component {
     constructor(routerProps: any) {
         super(routerProps);
         this.routerProps = routerProps;
+
+        fetch('http://localhost:3001/api/get_fake_data')
+            .then(data => data.json())
+            .then(transactions => {
+                console.log('transactions :', transactions);
+            })
 
         // if (!this.state.fetchedUser) {
         //     fetch('http://localhost:3001/getUser')
@@ -292,13 +313,15 @@ class App extends React.Component {
             const title = parents['BudgetGroupLineItem__options-btn'].getAttribute('title'),
                 elementPosition = parseInt(parents['BudgetGroupLineItem'].getAttribute('data-listposition'), 10),
                 budgetGroupListPosition = parseInt(parents['BudgetGroup'].getAttribute('data-listposition'), 10),
-                budgetGroupLineItemsState = this.state.finances.budget.budgetGroups[budgetGroupListPosition].lineItems,
-                [ removedElement ] = budgetGroupLineItemsState.splice(elementPosition, 1);
+                budgetGroupLineItemsState = this.state.finances.budget.budgetGroups[budgetGroupListPosition].lineItems;
+            let removedElement;
 
             if (title === 'Move up list' && elementPosition !== 0) {
+                [ removedElement ] = budgetGroupLineItemsState.splice(elementPosition, 1);
                 budgetGroupLineItemsState.splice(elementPosition - 1, 0, removedElement);
                 this.reOrderLineItems(budgetGroupListPosition, { updateFinancialState: true });
-            } else if (title === 'Move down list' && elementPosition !== budgetGroupLineItemsState.length - 1) {
+            } else if (title === 'Move down list' && elementPosition !== budgetGroupLineItemsState.length) {
+                [ removedElement ] = budgetGroupLineItemsState.splice(elementPosition, 1);
                 budgetGroupLineItemsState.splice(elementPosition + 1, 0, removedElement);
                 this.reOrderLineItems(budgetGroupListPosition, { updateFinancialState: true });
             } else {
