@@ -15,7 +15,7 @@ declare var window;
 
 class App extends React.Component {
 
-    public state = {
+    public state: any = {
         // TODO: move these into state.app
         fetchedUser: null,
         isLoading: true,
@@ -23,7 +23,8 @@ class App extends React.Component {
         app: {
             budget: {
                 budgetPlus: {
-                    display: 'Graph'
+                    display: 'Graph',
+                    lineItemDetails: null
                 }
             }
         },
@@ -109,7 +110,7 @@ class App extends React.Component {
                                 listPosition: 0,
                                 note: null,
                                 assignedTransactions: null,
-                                isFund: false
+                                isFund: true
                             }
                         ]
                     },
@@ -128,7 +129,7 @@ class App extends React.Component {
                                 listPosition: 0,
                                 note: null,
                                 assignedTransactions: null,
-                                isFund: false
+                                isFund: true
                             }
                         ]
                     }
@@ -146,14 +147,17 @@ class App extends React.Component {
             addBudgetGroupLineItem: this.addBudgetGroupLineItem.bind(this),
             updateDisplayedInBudgetPlus: this.updateDisplayedInBudgetPlus.bind(this),
             updateBudgetGroupLineItemPosition: this.updateBudgetGroupLineItemPosition.bind(this),
-            deleteBudgetGroupLineItem: this.deleteBudgetGroupLineItem.bind(this)
+            deleteBudgetGroupLineItem: this.deleteBudgetGroupLineItem.bind(this),
+            lineItemClicked: this.lineItemClicked.bind(this)
         }
     }
 
-    public routerProps: any;
-    constructor(routerProps: any) {
-        super(routerProps);
-        this.routerProps = routerProps;
+    public props: any;
+    public getParents: any;
+    constructor(props: any) {
+        super(props);
+
+        this.getParents = props.methods.getParents;
 
         fetch('http://localhost:3001/api/get_fake_data')
             .then(data => data.json())
@@ -207,6 +211,45 @@ class App extends React.Component {
                 </div>
             </main>
         );
+    }
+
+    public componentDidMount() {
+        document.addEventListener('OnLineItemBlur', this.lineItemBlurred);
+    }
+
+    public lineItemBlurred = () => {
+        const appState = this.state.app;
+        appState.budget.budgetPlus = {
+            display: 'Graph',
+            lineItemDetails: null
+        }
+
+        this.setState(() => {
+            return {
+                app: {...appState}
+            }
+        });
+    }
+
+    public lineItemClicked(event) {
+
+        const { BudgetGroupLineItem, BudgetGroup }: any = this.getParents(event.target, ['BudgetGroupLineItem', 'BudgetGroup']),
+            budgetGroupLineItemListPosition = BudgetGroupLineItem.getAttribute('data-listposition'),
+            budgetGroupListPosition = BudgetGroup.getAttribute('data-listposition'),
+            lineItemState = this.state.finances.budget.budgetGroups[budgetGroupListPosition].lineItems[budgetGroupLineItemListPosition],
+            appState = this.state.app;
+
+        lineItemState.budgetGroupHeader = BudgetGroup.getAttribute('data-header');
+        appState.budget.budgetPlus = {
+            display: 'LineItemDetails',
+            lineItemDetails: lineItemState
+        }
+
+        this.setState(() => {
+            return {
+                app: {...appState}
+            }
+        });
     }
 
     public addCurrencySymbol(amount: string): string {
@@ -346,52 +389,6 @@ class App extends React.Component {
             this.reOrderLineItems(budgetGroupListPosition, { updateFinancialState: true });
         } catch(err) {
             console.error('Error in deleteBudgetGroupLineItem:', err)
-        }
-    }
-
-    /**
-     * Returns an object of HTML elements whose classes match a class in the elementClassNames array
-     * @param target HTML event.target from click event
-     * @param elementClassNames array of class names that are desired
-     */
-    private getParents(target: HTMLElement, elementClassNames: string[]) {
-        const parents: HTMLElement[] = [target];
-
-        function getParent(el: HTMLElement) {
-            if (el.parentElement !== null) {
-                parents.push(el.parentElement);
-                getParent(el.parentElement);
-            }
-        }
-
-        try {
-            getParent(target);
-
-            const desiredElements = parents.filter(el => {
-                let match = false;
-                elementClassNames.forEach(className => {
-                    if (el.classList.contains(className)) {
-                        match = true;
-                    }
-                });
-                if (match) {
-                    return el;
-                } else {
-                    return null;
-                }
-            });
-
-            return desiredElements.reduce((prev, el) => {
-                elementClassNames.forEach(className => {
-                    if (el.classList.contains(className)) {
-                        prev[className] = el;
-                    }
-                });
-                return prev;
-            }, {});
-        } catch(err) {
-            console.error('Error in getting parents of element clicked:', err);
-            return null;
         }
     }
 

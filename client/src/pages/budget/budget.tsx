@@ -4,6 +4,7 @@ import './budget.css';
 import BudgetGraph from '../../components/Budget/BudgetGraph/BudgetGraph';
 import BudgetGroup from '../../components/Budget/BudgetGroup/BudgetGroup';
 import BudgetPageHeader from '../../components/Budget/BudgetPageHeader/BudgetPageHeader';
+import LineItemDetails from '../../components/Budget/LineItemDetails/LineItemDetails';
 import Transactions from '../../components/Budget/Transactions/Transactions';
 
 import { IBudgetGroup } from '../../mifi';
@@ -61,6 +62,11 @@ class Budget extends React.Component<IState> {
   private showInBudgetPlus(displayInBudgetPlusSection) {
     if (displayInBudgetPlusSection === 'Transactions') {
       return <Transactions />
+    } else if (displayInBudgetPlusSection === 'LineItemDetails') {
+      return <LineItemDetails {...{
+        lineItemDetails: this.props.state.app.budget.budgetPlus.lineItemDetails,
+        methods: this.methods
+      }}/>
     } else {
       return <BudgetGraph />
     }

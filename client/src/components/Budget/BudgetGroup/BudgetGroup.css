@@ -1,8 +1,8 @@
 .BudgetGroup {
     background: white;
-    border-radius: 15px;
+    border-radius: var(--budget-group-border-radius);
     box-shadow: 0px 0px 10px -3px var(--font-color);
-    padding: 1rem;
+    padding: var(--group-padding);
     min-width: 500px;
     position: relative;
     display: grid;

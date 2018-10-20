@@ -1,0 +1,169 @@
+.LineItemDetails {
+    border-radius: var(--budget-group-border-radius);
+    box-shadow: var(--group-box-shadow);
+    height: max-content;
+    background: white;
+    padding: var(--group-padding);
+    position: relative;
+    display: grid;
+    grid-template-rows: 25px minmax(auto, min-content) minmax(0px, auto) 2fr;
+    grid-gap: .5rem;
+}
+
+.LineItemDetails__close-btn {
+    border: none;
+    padding: 0px;
+    font-size: 1.25rem;
+    color: var(--blue);
+    justify-self: end;
+    position: relative;
+}
+
+.LineItemDetails__close-btn i {
+    cursor: pointer;
+}
+
+
+/* details section */
+.LineItemDetails__metadata {
+    position: relative;
+    margin-bottom: 2rem;
+    display: grid;
+    grid-template-rows: 13px 26px 5px 16px;
+    grid-template-areas: 
+        'group-title remaining'
+        'line-item-title amount'
+        'progress-bar progress-bar'
+        'spent spent'
+    ;
+    grid-gap: .5rem;
+}
+.LineItemDetails__metadata:after {
+    content: '';
+    background: whitesmoke;
+    width: calc(100% + 2rem);
+    height: 6px;
+    position: absolute;
+    left: -1rem;
+    bottom: -22px;
+}
+.metadata__progress-bar {
+    grid-area: progress-bar;
+    background: var(--progress-bar-background-color);
+    height: 5px;
+    border-radius: 10px;
+    position: relative;
+    display: block;
+}
+.metadata__progress-bar--inner {
+    border-radius: 10px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    z-index: 1;
+    background: var(--pri-color);
+}
+.metadata__group-title {
+    grid-area: group-title;
+    font-size: var(--details-budget-header);
+}
+.metadata__remaining {
+    font-size: var(--details-budget-header);
+    justify-self: end;
+    grid-area: remaining;
+}
+.metadata__line-item-title {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    grid-area: line-item-title;
+    font-size: var(--details-budget-title);
+    font-weight: bolder;
+}
+.metadata__amount {
+    grid-area: amount;
+    justify-self: end;
+    font-size: var(--details-budget-title);
+}
+.metadata__spent {
+    grid-area: spent;
+}
+.metadata__spent--green {
+    color: var(--pri-color);
+}
+
+
+/* details section */
+.LineItemDetails__details {
+    margin-bottom: 1.5rem;
+    position: relative;
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    grid-gap: 1rem;
+}
+.details__icon {
+    cursor: pointer;
+    color: var(--blue);
+}
+.details__fund {
+    display: grid;
+    grid-template-columns: 30px 1fr 10px;
+}
+.details__note {
+    position: relative;
+}
+.details__note i {
+    position: absolute;
+    top: 9px;
+    left: 1px;
+}
+.details__note input {
+    border: 1px solid transparent;
+    border-radius: var(--border-radius);
+    background: transparent;
+    color: var(--font-color);
+    font-size: 1rem;
+    position: absolute;
+    left: -10px;
+    right: -10px;
+    width: calc(100% + 20px);
+    padding: 8px 20px 8px 2.35rem;
+    transition: border .2s;
+}
+.details__note input:hover {
+    border: 1px solid var(--blue);
+}
+.details__note input:focus {
+    border: 1px solid transparent;
+}
+
+
+/* transactions section */
+.LineItemDetails__transactions {
+    margin-top: 2rem;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.LineItemDetails__transactions:after {
+    content: '';
+    background: whitesmoke;
+    width: calc(100% + 2rem);
+    height: 6px;
+    position: absolute;
+    top: -28px;
+    left: -1rem;
+}
+.transactions__btn {
+    border: none;
+    padding: 0px;
+    color: var(--dark-orange);
+    font-size: 1.25rem;
+    cursor: pointer;
+    transition: color .2s;
+}
+.transactions__btn:hover {
+    color: var(--light-orange);
+}

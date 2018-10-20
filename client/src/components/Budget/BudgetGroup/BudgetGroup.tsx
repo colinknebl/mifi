@@ -100,7 +100,9 @@ function ShowLineItems(props: any) {
 							planned: lineItem.planned,
 							title: lineItem.title,
 							listPosition: lineItem.listPosition,
-							budgetGroupBelongsTo: props.listPosition
+							budgetGroupBelongsTo: props.listPosition,
+							isFund: lineItem.isFund,
+							note: lineItem.note
 						}} />
 					})
 				}

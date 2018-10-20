@@ -6,6 +6,7 @@
     grid-area: options;
     justify-self: end;
     align-self: center;
+    transition: color .2s;
 }
 
 .TransactionHeaderIcon:hover {

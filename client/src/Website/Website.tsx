@@ -26,7 +26,8 @@ class Website extends React.Component {
 	public methods = {
 		website: {
 			loginFormChangeHandler: this.loginFormChangeHandler.bind(this),
-			loginFormSubmitHandler: this.loginFormSubmitHandler.bind(this)
+			loginFormSubmitHandler: this.loginFormSubmitHandler.bind(this),
+			getParents: this.getParents.bind(this)
 		}
 	}
 
@@ -49,7 +50,8 @@ class Website extends React.Component {
 							<Route exact={true} path="/register" render={props => <Register {...props} />} />
 							<Route path="/app" render={props => <App {...{
 								routerProps: props,
-								websiteClickHandler: this.websiteClickHandler
+								websiteClickHandler: this.websiteClickHandler,
+								methods: this.methods.website
 							}} />} />
 						</Switch>
 					</Router>
@@ -58,24 +60,109 @@ class Website extends React.Component {
 		);
 	}
 
-	public websiteClickHandler = (e) => {
-		const cl = e.target.classList;
+	/**
+     * Returns an object of HTML elements whose classes match a class in the elementClassNames array
+     * @param target @type {HTMLElement} HTML event.target from click event
+     * @param elementClassNames @type {string[]} array of class names that are desired
+     */
+    public getParents(target: HTMLElement, elementClassNames?: string[]) {
+        const parents: HTMLElement[] = [target];
 
-		if (this.state.BudgetGroupLineItemSelected) {
-			removeFocusClass();
+        function getParent(el: HTMLElement) {
+            if (el.parentElement !== null) {
+                parents.push(el.parentElement);
+                getParent(el.parentElement);
+            }
+        }
+
+        try {
+            getParent(target);
+
+            if (elementClassNames) {
+				const desiredElements = parents.filter(el => {
+					let match = false;
+					elementClassNames.forEach(className => {
+						if (el.classList.contains(className)) {
+							match = true;
+						}
+					});
+					if (match) {
+						return el;
+					} else {
+						return null;
+					}
+				});
+	
+				return desiredElements.reduce((prev, el) => {
+					elementClassNames.forEach(className => {
+						if (el.classList.contains(className)) {
+							prev[className] = el;
+						}
+					});
+					return prev;
+				}, {});
+			} else {
+				return {
+					parents
+				};
+			}
+        } catch(err) {
+            console.error('Error in getting parents of element clicked:', err);
+            return null;
+        }
+    }
+
+	public websiteClickHandler = (e) => {
+		const cl = e.target.classList,
+			blurEvent = new Event('OnLineItemBlur'),
+			parents: any = this.getParents(e.target);
+
+		const parentClasses: string[] = [];
+
+		if (parents && parents.parents) {
+			parents.parents.forEach(el => {
+				if (el.classList.length) {
+					el.classList.forEach(className => {
+						parentClasses.push(className)
+					});
+				}
+			});
 		}
 
-		if (cl.contains('js-BudgetGroupLineItem--parent')) {
-			cl.add('BudgetGroupLineItem--focus');
-			editZIndexOfChildren(e.target, true);
-			this.setState({BudgetGroupLineItemSelected: true});
-		
-		} else if (cl.contains('js-BudgetGroupLineItem--child')) {
-			e.target.parentElement.classList.add('BudgetGroupLineItem--focus');
-			editZIndexOfChildren(e.target.parentElement, true);
-			this.setState({BudgetGroupLineItemSelected: true});
-		} else {
-			this.setState({BudgetGroupLineItemSelected: false});
+		const match = parentClasses.some(className => {
+			if (className === 'LineItemDetails') {
+				return true
+			} else {
+				return false
+			}
+		});
+
+		const closeBtn = parentClasses.some(className => {
+			if (className === 'LineItemDetails__close-btn') {
+				return true;
+			} else {
+				return false;
+			}
+		})
+
+		if (!match || closeBtn) {
+			if (this.state.BudgetGroupLineItemSelected) {
+				removeFocusClass();
+			}
+	
+			if (cl.contains('js-BudgetGroupLineItem--parent')) {
+				cl.add('BudgetGroupLineItem--focus');
+				editZIndexOfChildren(e.target, true);
+				this.setState({BudgetGroupLineItemSelected: true});
+			
+			} else if (cl.contains('js-BudgetGroupLineItem--child')) {
+				e.target.parentElement.classList.add('BudgetGroupLineItem--focus');
+				editZIndexOfChildren(e.target.parentElement, true);
+				this.setState({BudgetGroupLineItemSelected: true});
+			} else {
+				this.setState({BudgetGroupLineItemSelected: false});
+				document.dispatchEvent(blurEvent);
+			}
 		}
 
 		function removeFocusClass() {

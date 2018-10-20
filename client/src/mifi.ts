@@ -16,6 +16,8 @@ export interface IBudgetGroupLineItem {
     actual: number;
     listPosition: number;
     budgetGroupBelongsTo: number;
+    note: string;
+    isFund: boolean;
     methods?: any;
 }
 
