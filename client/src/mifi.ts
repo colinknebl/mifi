@@ -8,6 +8,7 @@ export interface IBudgetGroup {
     calcTotals: boolean;
     listPosition: number;
     methods?: any;
+    budgetGroupListPosition: number
 }
 
 export interface IBudgetGroupLineItem {
@@ -19,6 +20,7 @@ export interface IBudgetGroupLineItem {
     note: string;
     isFund: boolean;
     methods?: any;
+    budgetGroupListPosition: number;
 }
 
 export interface IReOrderLineItemsOptions {

@@ -1,4 +1,4 @@
-import * as React from 'react';
+ import * as React from 'react';
 
 import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
 
@@ -60,7 +60,7 @@ class App extends React.Component {
                 budgetGroups: [
                     {
                         header: 'income',
-                        draggable: true,
+                        draggable: false,
                         addable: true,
                         minimized: false,
                         maxLineItems: 20,
@@ -110,7 +110,7 @@ class App extends React.Component {
                                 listPosition: 0,
                                 note: null,
                                 assignedTransactions: null,
-                                isFund: true
+                                isFund: false
                             }
                         ]
                     },
@@ -132,6 +132,53 @@ class App extends React.Component {
                                 isFund: true
                             }
                         ]
+                    },
+                    {
+                        header: 'Surplus',
+                        draggable: true,
+                        addable: true,
+                        minimized: false,
+                        maxLineItems: 20,
+                        listPosition: 3,
+                        lineItems: [
+                            {
+                                title: 'Surplus',
+                                planned: '30000',
+                                actual: '24000',
+                                listPosition: 0,
+                                note: null,
+                                assignedTransactions: null,
+                                isFund: true
+                            }
+                        ]
+                    },
+                    {
+                        header: 'Bills',
+                        draggable: true,
+                        addable: true,
+                        minimized: false,
+                        maxLineItems: 20,
+                        listPosition: 4,
+                        lineItems: [
+                            {
+                                title: 'Xfinity',
+                                planned: '7999',
+                                actual: '7999',
+                                listPosition: 0,
+                                note: null,
+                                assignedTransactions: null,
+                                isFund: true
+                            },
+                            {
+                                title: 'Water',
+                                planned: '999',
+                                actual: '000',
+                                listPosition: 1,
+                                note: null,
+                                assignedTransactions: null,
+                                isFund: false
+                            }
+                        ]
                     }
                 ]
             }
@@ -148,7 +195,10 @@ class App extends React.Component {
             updateDisplayedInBudgetPlus: this.updateDisplayedInBudgetPlus.bind(this),
             updateBudgetGroupLineItemPosition: this.updateBudgetGroupLineItemPosition.bind(this),
             deleteBudgetGroupLineItem: this.deleteBudgetGroupLineItem.bind(this),
-            lineItemClicked: this.lineItemClicked.bind(this)
+            lineItemClicked: this.lineItemClicked.bind(this),
+            setLineItemAsFund: this.setLineItemAsFund.bind(this),
+            reorderBudgetGroups: this.reorderBudgetGroups.bind(this),
+            orderItems: this.orderItems.bind(this)
         }
     }
 
@@ -195,8 +245,7 @@ class App extends React.Component {
 
                             <Route exact={true} path="/app/budget" render={routerProps => <Budget {...{
                                 routerProps,
-                                user: this.state.user,
-                                finances: this.state.finances,
+                                state: this.state,
                                 methods: this.methods
                             }} {...{state: this.state}} />} />
 
@@ -217,6 +266,58 @@ class App extends React.Component {
         document.addEventListener('OnLineItemBlur', this.lineItemBlurred);
     }
 
+    public orderItems(items) {
+        const sortedItems = items.sort((itemA, itemB) => {
+            if (itemA.listPosition < itemB.listPosition) {
+                return -1;
+            } else if (itemA.listPosition > itemB.listPosition) {
+                return 1;
+            } else {
+                return 0;
+            }
+        })
+        const numneredAndOrderedItems = sortedItems.map((item, i) => {
+            item.listPosition = i;
+            return item;
+        });
+		return numneredAndOrderedItems;
+	}
+
+    public reorderBudgetGroups(groupDragged, groupOver, updateState) {
+        const financeState = this.state.finances;
+        try {
+            const startListPosition = groupDragged.getAttribute('data-listposition');
+            const endListPosition = groupOver.getAttribute('data-listposition');
+            financeState.budget.budgetGroups[startListPosition].listPosition = parseInt(endListPosition, 10);
+            financeState.budget.budgetGroups[endListPosition].listPosition = parseInt(startListPosition, 10);
+        } catch(err) {
+            console.error('Failed to re-order budget groups:', err)
+        }
+
+        if (updateState) {
+            this.setState({finances: {...financeState}})
+        }
+    }
+
+    public setLineItemAsFund() {
+        const appState = this.state.app;
+        const lineItemEl = document.getElementById(this.state.app.budget.budgetPlus.lineItemId);
+        const { budgetGroupListPosition, budgetGroupLineItemListPosition } = appState.budget.budgetPlus;
+        const lineItemState = this.state.finances.budget.budgetGroups[budgetGroupListPosition].lineItems[budgetGroupLineItemListPosition];
+
+        lineItemState.isFund = true;
+
+        this.setState(() => {
+            return {
+                app: {...appState}
+            }
+        });
+
+        if (lineItemEl) {
+            lineItemEl.classList.add('BudgetGroupLineItem--fund')
+        }
+    }
+
     public lineItemBlurred = () => {
         const appState = this.state.app;
         appState.budget.budgetPlus = {
@@ -231,18 +332,19 @@ class App extends React.Component {
         });
     }
 
-    public lineItemClicked(event) {
+    public lineItemClicked(event, lineItemId: string) {
 
         const { BudgetGroupLineItem, BudgetGroup }: any = this.getParents(event.target, ['BudgetGroupLineItem', 'BudgetGroup']),
             budgetGroupLineItemListPosition = BudgetGroupLineItem.getAttribute('data-listposition'),
             budgetGroupListPosition = BudgetGroup.getAttribute('data-listposition'),
-            lineItemState = this.state.finances.budget.budgetGroups[budgetGroupListPosition].lineItems[budgetGroupLineItemListPosition],
             appState = this.state.app;
 
-        lineItemState.budgetGroupHeader = BudgetGroup.getAttribute('data-header');
         appState.budget.budgetPlus = {
             display: 'LineItemDetails',
-            lineItemDetails: lineItemState
+            budgetGroupHeader: BudgetGroup.getAttribute('data-header'),
+            budgetGroupListPosition,
+            budgetGroupLineItemListPosition,
+            lineItemId
         }
 
         this.setState(() => {

@@ -3,24 +3,37 @@ import './LineItemDetails.css';
 
 import 'font-awesome/css/font-awesome.min.css';
 
-class LineItemDetails extends React.Component {
-	private id: string;
+class LineItemDetails extends React.Component<any, any> {
+
+	public state = {
+		caretDirection: 'down'
+	}
+
+	private progressBarId: string;
+	private fundMoreId: string;
 	private progressBarPercent: number;
 
 	public render() {
 
-		const { lineItemDetails: d, methods }: any = this.props,
-			detailsHeader = d.budgetGroupHeader.charAt(0).toUpperCase() + d.budgetGroupHeader.slice(1).toLowerCase(),
-			note = d.note || 'Add a note',
+		const state = this.props.state,
+			budgetGroupListPosition = state.app.budget.budgetPlus.budgetGroupListPosition,
+			lineItemListPosition = state.app.budget.budgetPlus.budgetGroupLineItemListPosition,
+			lineItemToRender = state.finances.budget.budgetGroups[budgetGroupListPosition].lineItems[lineItemListPosition],
+			budgetGroupHeader = state.app.budget.budgetPlus.budgetGroupHeader,
+			detailsHeader = budgetGroupHeader.charAt(0).toUpperCase() + budgetGroupHeader.slice(1).toLowerCase(),
+			methods = this.props.methods,
+			note = lineItemToRender.note || 'Add a note',
 			amountHeader = detailsHeader === 'Income' ? 'Planned' : 'Remaining',
-			amount = methods.financial.formatAmount(d.planned),
-			actualAmount = methods.financial.formatAmount(d.actual),
+			amount = methods.financial.formatAmount(lineItemToRender.planned),
+			actualAmount = methods.financial.formatAmount(lineItemToRender.actual),
 			spent = detailsHeader === 'Income' ? 'Received' : 'Spent',
-			numberOfTransaction = d.assignedTransactions || 0;
+			numberOfTransaction = lineItemToRender.assignedTransactions || 0,
+			caretDirection = this.state.caretDirection;
 
-		this.id = Date.now().toString();
-		this.progressBarPercent = d.actual / d.planned || 0;
-
+		this.progressBarId = Date.now().toString() + '-details-progress-bar';
+		this.fundMoreId = Date.now().toString() + '-fund-more';
+		this.progressBarPercent = lineItemToRender.actual / lineItemToRender.planned || 0;
+		
 		return (
 			<aside className="LineItemDetails">
 				<button className="LineItemDetails__close-btn">
@@ -29,19 +42,27 @@ class LineItemDetails extends React.Component {
 				<section className="LineItemDetails__metadata">
 					<p className="metadata__group-title">{detailsHeader}</p>
 					<p className="metadata__remaining">{amountHeader}</p>
-					<p className="metadata__line-item-title">{d.title}</p>
+					<p className="metadata__line-item-title">{lineItemToRender.title}</p>
 					<p className="metadata__amount">{amount}</p>
 					<span className="metadata__progress-bar">
-						<span id={this.id} className="metadata__progress-bar--inner" />
+						<span id={this.progressBarId} className="metadata__progress-bar--inner" />
 					</span>
 					<p className="metadata__spent"><span className="metadata__spent--green">{actualAmount}</span> {spent}</p>
 				</section>
 				<section className="LineItemDetails__details">
-					<div className="details__fund">
-						<i className="fa fa-university details__icon" />
-						<p>Make this a fund</p>
-						<i className="fa fa-caret-down details__icon" />
-					</div>
+					{
+						detailsHeader !== 'Income' && !lineItemToRender.isFund
+							? 	<div className="details__fund">
+									<i className="fa fa-university details__icon" />
+									<p>Make this a fund</p>
+									<i className={`fa fa-caret-${caretDirection} details__icon`} onClick={this.fundCaretClicked} />
+									<div id={this.fundMoreId} className="fund__more">
+										<p>Funds carry balances month to month, letting you save toward a goal over time.</p>
+										<button className="btn btn-blue fund__more__btn" onClick={this.setLineItemAsFund}>Make this a Fund</button>
+									</div>
+								</div>
+							: 	null
+					}
 					<div className="details__note">
 						<i className="fa fa-sticky-note details__icon" />
 						<input type="text" value={note} onChange={this.changed} />
@@ -64,13 +85,29 @@ class LineItemDetails extends React.Component {
 	public componentDidUpdate() {
 		this.fillInProgressBar();
 	}
-	
+
 	public changed() {
 		console.log('changed');
 	}
 
+	private setLineItemAsFund = () => {
+		this.props.methods.financial.setLineItemAsFund();
+	}
+
+	private fundCaretClicked = () => {
+		const fundMore = document.getElementById(this.fundMoreId);
+		if (!fundMore) {return}
+		if (this.state.caretDirection === 'down') {
+			fundMore.classList.add('fund__more--open');
+			this.setState({caretDirection: 'up'});
+		} else {
+			fundMore.classList.remove('fund__more--open');
+			this.setState({caretDirection: 'down'});
+		}
+	}
+
 	private fillInProgressBar() {
-		const innerProgressBar = document.getElementById(this.id);
+		const innerProgressBar = document.getElementById(this.progressBarId);
 		if (innerProgressBar) {
 			innerProgressBar.style.width = this.progressBarPercent * 100 + '%';
 		}

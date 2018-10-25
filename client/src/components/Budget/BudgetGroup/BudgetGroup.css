@@ -15,8 +15,31 @@
     align-items: center;
 }
 
+.BudgetGroupList--dragging .BudgetGroup:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    background: transparent;
+    z-index: 100;
+}
+
+.BudgetGroup--drag-target:active {
+    display: none;
+    /* border: 2px solid aqua;
+    content: '';
+    border-radius: var(--budget-group-border-radius);
+    box-shadow: 0px 0px 5px 5px darkgrey inset;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    background: lightgrey;
+    z-index: 1; */
+}
+
 .BudgetGroup__header {
-    /* display: inline-block; */
     grid-area: header;
 }
 

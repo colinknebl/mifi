@@ -5,7 +5,7 @@ import './BudgetGroupLineItem.css';
 
 import { IBudgetGroupLineItem } from '../../../mifi';
 
-class BudgetGroupLineItem extends React.Component {
+class BudgetGroupLineItem extends React.Component<any, any> {
     public props: IBudgetGroupLineItem;
     public progressBarId: string;
     public lineItemId: string;
@@ -26,10 +26,8 @@ class BudgetGroupLineItem extends React.Component {
                 id={this.lineItemId}
                 className="BudgetGroupLineItem js-BudgetGroupLineItem--parent" 
                 data-listposition={listPosition}
-                onClick={fn.lineItemClicked} >
-                {
-                    this.props.isFund ? <i className="fa fa-university BudgetGroupLineItem__fund-icon" /> : null
-                }
+                onClick={this.lineItemClicked} >
+                <i className="fa fa-university BudgetGroupLineItem__fund-icon" />
                 <input type="text" 
                     className="BudgetGroupLineItem__input BudgetGroupLineItem--editable js-BudgetGroupLineItem--child"
                     data-groupnumber={this.props.budgetGroupBelongsTo} 
@@ -85,6 +83,10 @@ class BudgetGroupLineItem extends React.Component {
                 el.style.borderColor = 'var(--pri-color)';
             }
         }
+    }
+
+    private lineItemClicked = (event) => {
+        this.props.methods.financial.lineItemClicked(event, this.lineItemId)
     }
 }
 

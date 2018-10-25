@@ -13,6 +13,8 @@
 	display: grid;
 	grid-gap: 1rem;
 	margin-right: 1rem;
+	position: relative;
+	z-index: 0;
 }
 
 @media screen and (max-width: 1000px) {

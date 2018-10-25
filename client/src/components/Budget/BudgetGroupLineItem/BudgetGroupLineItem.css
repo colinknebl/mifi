@@ -26,9 +26,13 @@
 }
 
 .BudgetGroupLineItem__fund-icon {
+    display: none;
     position: absolute;
     color: var(--blue);
     top: 17px;
+}
+.BudgetGroupLineItem--fund .BudgetGroupLineItem__fund-icon {
+    display: block;
 }
 
 .BudgetGroupLineItem--fund .BudgetGroupLineItem__input:first-of-type {

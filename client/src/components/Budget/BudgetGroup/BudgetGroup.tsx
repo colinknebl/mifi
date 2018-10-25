@@ -39,15 +39,15 @@ class BudgetGroup extends React.Component {
 		} else {
 			this.lineItems = this.props.lineItems;
 		}
-		
-		const { header, methods: { financial: fn }, calcTotals } = this.props;
+
+		const { header, draggable, methods: { financial: fn }, calcTotals } = this.props;
 
 		const plannedSum = fn.formatAmount(fn.sum(this.props.lineItems, 'planned')),
 			receivedSum = fn.formatAmount(fn.sum(this.props.lineItems, 'actual')),
 			icon = this.state.minimized ? 'down' : 'up';
 
 		return (
-			<li className="BudgetGroup" data-header={header} data-listposition={this.props.listPosition} >
+			<li className="BudgetGroup" data-header={header} data-listposition={this.props.listPosition} draggable={draggable}>
 				<h6 className="BudgetGroup__header font--dark">
 					{header.toUpperCase()}
 					<button className="BudgetGroup__caret-icon" onClick={this.budgetGroupExpandCloseHandler}>
@@ -65,7 +65,8 @@ class BudgetGroup extends React.Component {
 								methods: this.props.methods,
 								calcTotals,
 								plannedSum,
-								receivedSum
+								receivedSum,
+								budgetGroupListPosition: this.props.budgetGroupListPosition
 							}} /> 
 						: null
 				}
@@ -79,6 +80,7 @@ class BudgetGroup extends React.Component {
 	}
 
 	private orderLineItems(lineItems) {
+		// TODO: use the 'orderItems' in App.tsx to accomplish this
 		const orderedLineItems: IBudgetGroupLineItem[] = [];
 		lineItems.map((item, i) => {
 			orderedLineItems.splice(item.listPosition, 0, item);
@@ -102,7 +104,8 @@ function ShowLineItems(props: any) {
 							listPosition: lineItem.listPosition,
 							budgetGroupBelongsTo: props.listPosition,
 							isFund: lineItem.isFund,
-							note: lineItem.note
+							note: lineItem.note,
+							budgetGroupListPosition: props.budgetGroupListPosition
 						}} />
 					})
 				}
