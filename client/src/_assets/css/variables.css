@@ -27,14 +27,14 @@
   --border-radius: 8px;
   --AppNavigationBar-padding: .5rem;
   --budget-group-border-radius: 15px;
-  --BudgetGroupGridCols: 2fr 1fr 1fr;
-  --BudgetGroupGridGap: .5rem;
+  --budget-group-grid-cols: minmax(200px, 3fr) repeat(2, minmax(150px, 1fr));
+  --budget-group-grid-gap: .5rem;
   --details-budget-header: .75rem;
   --details-budget-title: 1.5rem;
 
   /* Budget Group */
   --group-box-shadow: 0px 0px 10px -3px var(--font-color);
-  --group-padding: 1rem;
+  --group-padding: 1.5rem;
 
   /* Root styles */
   font-size: 16px;

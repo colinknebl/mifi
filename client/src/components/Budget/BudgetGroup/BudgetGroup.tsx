@@ -19,7 +19,6 @@ class BudgetGroup extends React.Component {
 
 	constructor(props: IBudgetGroup) {
 		super(props)
-
 		this.state.minimized = props.minimized;
 	}
 
@@ -45,9 +44,18 @@ class BudgetGroup extends React.Component {
 		const plannedSum = fn.formatAmount(fn.sum(this.props.lineItems, 'planned')),
 			receivedSum = fn.formatAmount(fn.sum(this.props.lineItems, 'actual')),
 			icon = this.state.minimized ? 'down' : 'up';
+		let className = header === 'drop target' ? 'BudgetGroup BudgetGroup--drop-target' : "BudgetGroup";
+			
+		if (this.state.minimized) {
+			className += ' BudgetGroup--collapsed';
+		}
 
 		return (
-			<li className="BudgetGroup" data-header={header} data-listposition={this.props.listPosition} draggable={draggable}>
+			<li className={className} data-header={header} data-listposition={this.props.listPosition} draggable={draggable}>
+				<div className="BudgetGroup--grip-container">
+					<i className="fa fa-ellipsis-v "/>
+					<i className="fa fa-ellipsis-v "/>
+				</div>
 				<h6 className="BudgetGroup__header font--dark">
 					{header.toUpperCase()}
 					<button className="BudgetGroup__caret-icon" onClick={this.budgetGroupExpandCloseHandler}>

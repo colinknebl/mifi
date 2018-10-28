@@ -134,7 +134,7 @@ class App extends React.Component {
                         ]
                     },
                     {
-                        header: 'Surplus',
+                        header: 'surplus',
                         draggable: true,
                         addable: true,
                         minimized: false,
@@ -153,7 +153,7 @@ class App extends React.Component {
                         ]
                     },
                     {
-                        header: 'Bills',
+                        header: 'bills',
                         draggable: true,
                         addable: true,
                         minimized: false,
@@ -185,7 +185,7 @@ class App extends React.Component {
         }
     }
 
-    public methods = {
+    public methods: any = {
         financial: {
             addCurrencySymbol: this.addCurrencySymbol.bind(this),
             sum: this.sum.bind(this),
@@ -206,6 +206,7 @@ class App extends React.Component {
     public getParents: any;
     constructor(props: any) {
         super(props);
+        this.methods.website = props.methods;
 
         this.getParents = props.methods.getParents;
 
@@ -281,22 +282,36 @@ class App extends React.Component {
             return item;
         });
 		return numneredAndOrderedItems;
-	}
+    }
+    
+    public reorderBudgetGroups(budgetGroupList) {
+        const financialState = this.state.finances;
+        const domListOrder = Array.from(budgetGroupList.children).reduce((prev: any[], group) => {
+            // @ts-ignore
+            prev[group.getAttribute('data-header')] = {
+                // @ts-ignore
+                listPosition: parseInt(group.getAttribute('data-listposition'), 10)
+            };
+            return prev;
+        }, {});
 
-    public reorderBudgetGroups(groupDragged, groupOver, updateState) {
-        const financeState = this.state.finances;
-        try {
-            const startListPosition = groupDragged.getAttribute('data-listposition');
-            const endListPosition = groupOver.getAttribute('data-listposition');
-            financeState.budget.budgetGroups[startListPosition].listPosition = parseInt(endListPosition, 10);
-            financeState.budget.budgetGroups[endListPosition].listPosition = parseInt(startListPosition, 10);
-        } catch(err) {
-            console.error('Failed to re-order budget groups:', err)
-        }
+        const map = this.state.finances.budget.budgetGroups
+            .map(group => {
+                group.listPosition = domListOrder[group.header].listPosition;
+                return group;
+            })
+            .sort((groupA, groupB) => {
+                if (groupA.listPosition < groupB.listPosition) {
+                    return -1;
+                } else if (groupA.listPosition > groupB.listPosition) {
+                    return 1;
+                } else {
+                    return 0;
+                }
+            });
 
-        if (updateState) {
-            this.setState({finances: {...financeState}})
-        }
+        financialState.budget.budgetGroups = map;
+        this.setState({finances: {...financialState}});
     }
 
     public setLineItemAsFund() {

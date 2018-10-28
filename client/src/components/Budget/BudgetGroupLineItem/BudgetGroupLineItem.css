@@ -4,9 +4,10 @@
     position: relative;
     margin: .5rem auto;
     padding: .5rem 0;
+    width: 100%;
     display: grid;
-    grid-template-columns: var(--BudgetGroupGridCols);
-    grid-gap: var(--BudgetGroupGridGap);
+    grid-template-columns: var(--budget-group-grid-cols);
+    grid-gap: var(--budget-group-grid-gap);
 }
 
 .BudgetGroupLineItem--focus {
@@ -61,6 +62,9 @@
     border-color: var(--blue);
     background: white !important;
 }
+/* .BudgetGroupLineItem--editable:nth-child(3) {
+    margin-right: -11px;
+} */
 .BudgetGroupLineItem__input--right {
     text-align: right;
     width: fit-content;

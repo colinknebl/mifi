@@ -42,7 +42,7 @@ class LineItemDetails extends React.Component<any, any> {
 				<section className="LineItemDetails__metadata">
 					<p className="metadata__group-title">{detailsHeader}</p>
 					<p className="metadata__remaining">{amountHeader}</p>
-					<p className="metadata__line-item-title">{lineItemToRender.title}</p>
+					<p className="metadata__line-item-title" title={lineItemToRender.title}>{lineItemToRender.title}</p>
 					<p className="metadata__amount">{amount}</p>
 					<span className="metadata__progress-bar">
 						<span id={this.progressBarId} className="metadata__progress-bar--inner" />

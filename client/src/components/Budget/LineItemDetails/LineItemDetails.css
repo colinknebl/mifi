@@ -41,10 +41,10 @@
 .LineItemDetails__metadata:after {
     content: '';
     background: whitesmoke;
-    width: calc(100% + 2rem);
+    width: calc(100% + (2 * var(--group-padding)));
     height: 6px;
     position: absolute;
-    left: -1rem;
+    left: calc(-1 * var(--group-padding));
     bottom: -22px;
 }
 .metadata__progress-bar {
@@ -165,11 +165,11 @@
 .LineItemDetails__transactions:after {
     content: '';
     background: whitesmoke;
-    width: calc(100% + 2rem);
+    width: calc(100% + (2 * var(--group-padding)));
     height: 6px;
     position: absolute;
     top: -28px;
-    left: -1rem;
+    left: calc(-1 * var(--group-padding));
 }
 .transactions__btn {
     border: none;
