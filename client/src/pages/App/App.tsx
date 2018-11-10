@@ -32,10 +32,19 @@ class App extends React.Component {
             firstName: 'Colin',
             lastName: 'Knebl',
             email: 'colin.knebl@outlook.com',
+            newUser: false,
+            signupDate: 'Wed Aug 1 2017 09:53:39 GMT-0400 (Eastern Daylight Time)',
+            lastLogin: null,
             settings: {
                 currency: 'USD'
             },
-            accessToken: ['access-sandbox-e94b818a-24be-4fa6-b64f-1abe2a082b18']
+            accessToken: ['access-sandbox-e94b818a-24be-4fa6-b64f-1abe2a082b18'],
+            lastBudgetState: {
+                monthSelector: {
+                    month: 8,
+                    year: 2018
+                }
+            }
         },
         finances: {
             banks: [
@@ -198,7 +207,11 @@ class App extends React.Component {
             lineItemClicked: this.lineItemClicked.bind(this),
             setLineItemAsFund: this.setLineItemAsFund.bind(this),
             reorderBudgetGroups: this.reorderBudgetGroups.bind(this),
-            orderItems: this.orderItems.bind(this)
+            orderItems: this.orderItems.bind(this),
+            changeMonth: this.changeMonth.bind(this)
+        },
+        user: {
+            updateUserLastBudgetState: this.updateUserLastBudgetState.bind(this)
         }
     }
 
@@ -209,6 +222,8 @@ class App extends React.Component {
         this.methods.website = props.methods;
 
         this.getParents = props.methods.getParents;
+
+        // TODO: update this.state.user.lastLogin
 
         fetch('http://localhost:3001/api/get_fake_data')
             .then(data => data.json())
@@ -263,8 +278,33 @@ class App extends React.Component {
         );
     }
 
+    public changeMonth(event) {
+        const userState = this.state.user,
+            parent = this.getParents(event.target, ['MonthSelectorDropdown__month-box']),
+            monthEl = parent['MonthSelectorDropdown__month-box'],
+            monthNum = parseInt(monthEl.getAttribute('data-month-num'), 10),
+            year = parseInt(monthEl.textContent.slice(3, monthEl.textContent.length), 10);
+
+        userState.lastBudgetState.monthSelector = {
+            month: monthNum,
+            year
+        };
+        
+        this.setState({user: {...userState}})
+    }
+
     public componentDidMount() {
         document.addEventListener('OnLineItemBlur', this.lineItemBlurred);
+    }
+
+    public updateUserLastBudgetState(month: number, fullYear: number) {
+        const userState = this.state.user;
+        userState.lastBudgetState.monthSelector = {
+            month,
+            year: fullYear
+        }
+
+        this.setState({user: {...userState}});
     }
 
     public orderItems(items) {

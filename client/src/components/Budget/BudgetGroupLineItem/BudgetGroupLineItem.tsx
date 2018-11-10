@@ -74,13 +74,23 @@ class BudgetGroupLineItem extends React.Component<any, any> {
     public fillInProgressBar(el) {
         const planned = parseInt(this.props.actual.toString(), 10),
               actual = parseInt(this.props.planned.toString(), 10);
-        let percent;
+        let percent, cssPercent;
 
         if (planned > 0) {
-            percent = ((actual / planned) * 100) > 100 ? 100 : (actual / planned) * 100;
+            percent = planned / actual;
+            if (percent > 1) {
+                cssPercent = 1 * 100;
+            } else {
+                cssPercent = percent * 100;
+            }
+
             if (el) { 
-                el.style.width = percent.toString() + '%';
-                el.style.borderColor = 'var(--pri-color)';
+                el.style.width = cssPercent.toString() + '%';
+                if (percent > 1) {
+                    el.style.borderColor = 'var(--red)';
+                } else {
+                    el.style.borderColor = 'var(--pri-color)';
+                }
             }
         }
     }

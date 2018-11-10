@@ -59,12 +59,7 @@
 }
 
 .BudgetGroup__caret-icon {
-    border: none;
     font-size: 20px;
-    color: var(--blue);
-    margin-left: .5rem;
-    cursor: pointer;
-    outline-color: var(--blue);
 }
 
 .BudgetGroup__caret-icon i {

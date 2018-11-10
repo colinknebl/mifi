@@ -58,13 +58,13 @@ class BudgetGroup extends React.Component {
 				</div>
 				<h6 className="BudgetGroup__header font--dark">
 					{header.toUpperCase()}
-					<button className="BudgetGroup__caret-icon" onClick={this.budgetGroupExpandCloseHandler}>
+					<button className="btn-caret BudgetGroup__caret-icon" onClick={this.budgetGroupExpandCloseHandler}>
 						<i className={`fa fa-caret-${icon}`} aria-hidden="true" />
 					</button>
 				</h6>
 				<span className="BudgetGroup__column--right column-header__planned font--light">Planned</span>
 				<span className="BudgetGroup__column--right column-header__received font--light">{
-					header === 'income' ? 'Received' : 'Remaining'
+					header === 'income' ? 'Received' : 'Spent'
 				}</span>
 				{
 					!this.state.minimized 
