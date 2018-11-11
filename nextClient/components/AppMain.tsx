@@ -1,200 +1,18 @@
- import * as React from 'react';
+import React, { Component } from 'react';
+import Budget from './Budget/Budget';
+import Dashboard from '../components/Dashboard/Dashboard';
+import AppNavigationBar from './Navigation/AppNavigationBar';
+import state from './InitialState';
 
-import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
+import { IReOrderLineItemsOptions, IBudgetGroupLineItem } from '../typescript/interfaces/mifi';
 
-import './App.css';
+class AppMain extends Component {
+    public getParents: Function;
+    private componentToRender: string;
 
-import AppNavigationBar from '../../components/AppNavigationBar/AppNavigationBar';
-import Dashboard from '../../pages/Dashboard/Dashboard';
-import Budget from '../budget/budget';
-import CreditMonitoringPage from '../CreditMonitoringPage/CreditMonitoringPage';
+    public state: any = state;
 
-import { IBudgetGroupLineItem, IReOrderLineItemsOptions } from '../../mifi';
-
-declare var window;
-
-class App extends React.Component {
-
-    public state: any = {
-        // TODO: move these into state.app
-        fetchedUser: null,
-        isLoading: true,
-        // =============================
-        app: {
-            budget: {
-                budgetPlus: {
-                    display: 'Graph',
-                    lineItemDetails: null
-                }
-            }
-        },
-        user: {
-            firstName: 'Colin',
-            lastName: 'Knebl',
-            email: 'colin.knebl@outlook.com',
-            newUser: false,
-            signupDate: 'Wed Aug 1 2017 09:53:39 GMT-0400 (Eastern Daylight Time)',
-            lastLogin: null,
-            settings: {
-                currency: 'USD'
-            },
-            accessToken: ['access-sandbox-e94b818a-24be-4fa6-b64f-1abe2a082b18'],
-            lastBudgetState: {
-                monthSelector: {
-                    month: 8,
-                    year: 2018
-                }
-            }
-        },
-        finances: {
-            banks: [
-                { name: 'USAA' },
-                { name: 'Lake Michigan Credit Union' }
-            ],
-            transactions: [
-                { 
-                    amount: { 
-                        usd: -120.19
-                    },
-                    date: '2018-09-19',
-                    description: 'MEIJER #232        Q01   MUSKEGO',
-                    externalBankID: "fn45984204",
-                    externalTransactionID: "fn6888261429",
-                    ignored: false,
-                    merchant: "Meijer",
-                    allocated: []
-                }
-            ],
-            budget: {
-                budgetGroups: [
-                    {
-                        header: 'income',
-                        draggable: false,
-                        addable: true,
-                        minimized: false,
-                        maxLineItems: 20,
-                        listPosition: 0,
-                        lineItems: [
-                            {
-                                title: '2020 Paycheck 1 (9/6)',
-                                planned: '197740',
-                                actual: '197740',
-                                listPosition: 0,
-                                note: null,
-                                assignedTransactions: null,
-                                isFund: false
-                            },
-                            {
-                                title: '2020 Paycheck 2 (9/20)',
-                                planned: '163742',
-                                actual: '163742',
-                                listPosition: 1,
-                                note: null,
-                                assignedTransactions: null,
-                                isFund: false
-                            },
-                            {
-                                title: 'Drill Pay 9/18',
-                                planned: '37689',
-                                actual: '37689',
-                                listPosition: 2,
-                                note: null,
-                                assignedTransactions: null,
-                                isFund: false
-                            }
-                        ]
-                    },
-                    {
-                        header: 'tithing',
-                        draggable: true,
-                        addable: true,
-                        minimized: false,
-                        maxLineItems: 20,
-                        listPosition: 1,
-                        lineItems: [
-                            {
-                                title: 'Tithing',
-                                planned: '000',
-                                actual: '000',
-                                listPosition: 0,
-                                note: null,
-                                assignedTransactions: null,
-                                isFund: false
-                            }
-                        ]
-                    },
-                    {
-                        header: 'retirement',
-                        draggable: true,
-                        addable: true,
-                        minimized: true,
-                        maxLineItems: 20,
-                        listPosition: 2,
-                        lineItems: [
-                            {
-                                title: 'Retirement Fund',
-                                planned: '000',
-                                actual: '000',
-                                listPosition: 0,
-                                note: null,
-                                assignedTransactions: null,
-                                isFund: true
-                            }
-                        ]
-                    },
-                    {
-                        header: 'surplus',
-                        draggable: true,
-                        addable: true,
-                        minimized: false,
-                        maxLineItems: 20,
-                        listPosition: 3,
-                        lineItems: [
-                            {
-                                title: 'Surplus',
-                                planned: '30000',
-                                actual: '24000',
-                                listPosition: 0,
-                                note: null,
-                                assignedTransactions: null,
-                                isFund: true
-                            }
-                        ]
-                    },
-                    {
-                        header: 'bills',
-                        draggable: true,
-                        addable: true,
-                        minimized: false,
-                        maxLineItems: 20,
-                        listPosition: 4,
-                        lineItems: [
-                            {
-                                title: 'Xfinity',
-                                planned: '7999',
-                                actual: '7999',
-                                listPosition: 0,
-                                note: null,
-                                assignedTransactions: null,
-                                isFund: true
-                            },
-                            {
-                                title: 'Water',
-                                planned: '999',
-                                actual: '000',
-                                listPosition: 1,
-                                note: null,
-                                assignedTransactions: null,
-                                isFund: false
-                            }
-                        ]
-                    }
-                ]
-            }
-        }
-    }
-
-    public methods: any = {
+	public methods: any = {
         financial: {
             addCurrencySymbol: this.addCurrencySymbol.bind(this),
             sum: this.sum.bind(this),
@@ -215,67 +33,42 @@ class App extends React.Component {
         }
     }
 
-    public props: any;
-    public getParents: any;
-    constructor(props: any) {
-        super(props);
-        this.methods.website = props.methods;
+    constructor(componentProps) {
+        super(componentProps);
 
-        this.getParents = props.methods.getParents;
-
-        // TODO: update this.state.user.lastLogin
-
-        fetch('http://localhost:3002/api/get_fake_data')
-            .then(data => data.json())
-            .then(transactions => {
-                console.log('transactions :', transactions);
-            });
-
-        // if (!this.state.fetchedUser) {
-        //     fetch('http://localhost:3001/getUser')
-        //         .then(data => data.json())
-        //         .then(user => {
-        //             console.log('data :', user);
-        //         })
-        // }
-
-        // FIXME: don't forget to delete this
-        window.state = this.state;
+        const {props, render} = componentProps;
+        this.componentToRender = render;
+        this.getParents = props.methods.website.getParents;
     }
 
-    public render() {
-        // if (this.state.isLoading) {
-        //     return (
-        //         <h1>Loading app data...</h1>
-        //     )
-        // }
+    render() {
 
         return (
-            <main className="App">
-                <AppNavigationBar {...{
-                    user: this.state.user
+            <section>
+                <AppNavigationBar />
+                <section className="App__content-container">
+                    {this.renderComponent()}
+                </section>
+            </section>
+        )
+    }
+
+    private renderComponent() {
+        switch(this.componentToRender) {
+            case 'Budget':
+                return <Budget {...{
+                    state: this.state,
+                    methods: this.methods
                 }} />
-                <div className="App__content-container">
-                    <Router>
-                        <Switch>
-
-                            <Route exact={true} path="/app/budget" render={routerProps => <Budget {...{
-                                routerProps,
-                                state: this.state,
-                                methods: this.methods
-                            }} {...{state: this.state}} />} />
-
-                            <Route exact={true} path="/app/credit-monitoring" render={props => <CreditMonitoringPage {...props} />} />
-                            <Route exact={true} path="/app/dashboard" render={props => <Dashboard {...{
-                                props,
-                                state: this.state
-                            }} />} />
-                            <Redirect to="/app/dashboard" />
-                        </Switch>
-                    </Router>
-                </div>
-            </main>
-        );
+            case 'Dashboard':
+                return <Dashboard {...{
+                    state: this.state,
+                    methods: this.methods
+                }} />
+            default: 
+                console.warn('Unknow component:', this.componentToRender);
+                return null;
+        }
     }
 
     public changeMonth(event) {
@@ -570,4 +363,4 @@ class App extends React.Component {
     }
 }
 
-export default App; 
+export default AppMain;

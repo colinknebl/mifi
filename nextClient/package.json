@@ -4,7 +4,9 @@
     "description": "Mifi Client using Next.js",
     "main": "pages/index.js",
     "scripts": {
-        "dev": "next"
+        "dev": "next",
+        "build": "next build",
+        "start": "next start"
     },
     "author": "Colin Knebl",
     "license": "ISC",
@@ -13,6 +15,7 @@
         "@types/react": "^16.7.2",
         "@types/react-dom": "^16.0.9",
         "@zeit/next-typescript": "^1.1.1",
+        "font-awesome": "^4.7.0",
         "next": "^7.0.2",
         "react": "^16.6.1",
         "react-dom": "^16.6.1"

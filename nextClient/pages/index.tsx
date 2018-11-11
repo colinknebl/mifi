@@ -1,10 +1,11 @@
 import React from 'react';
 
 class Index extends React.Component {
-    render() {    
+    render() {
+        console.log('this.props in index :', this.props);
         return (
             <div>
-                Hello Next.js
+                <h1>MiFi Landing Page</h1>
             </div>
         )
     }
