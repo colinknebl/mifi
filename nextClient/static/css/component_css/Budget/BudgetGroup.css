@@ -70,13 +70,13 @@
     text-align: right;
 }
 
-.column-header__planned {
-    /* grid-area: planned; */
+/* .column-header__planned {
+    grid-area: planned;
 }
 
 .column-header__received {
-    /* grid-area: received; */
-}
+    grid-area: received;
+} */
 
 .BudgetGroup--collapsed .BudgetGroup__line-item-list,
 .BudgetGroup--collapsed .BudgetGroup__add-item-btn {
