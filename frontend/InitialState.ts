@@ -1,5 +1,4 @@
 export default {
-	// TODO: move these into state.app
 	fetchedUser: null,
 	isLoading: true,
 	// =============================
