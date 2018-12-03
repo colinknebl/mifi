@@ -1,4 +1,77 @@
+# user type definitions
 type User {
-  id: ID! @unique
-  name: String!
+	id: ID! @unique
+	firstName: String!
+	lastName: String!
+	middleName: String
+	email: String! @unique
+	createdAt: DateTime!
+	updatedAt: DateTime!
+	lastLogin: DateTime!
+	settings: UserSettings!
+	accessToken: [String!]!
+	lastLoginState: UserLastLoginState
+}
+
+type UserSettings {
+	currency: String!
+}
+
+type UserLastLoginState {
+	monthSelector: MonthYear!
+}
+
+type MonthYear {
+	month: Int!
+	year: Int!
+}
+
+# finances type definitions
+type Finances {
+	banks: [Bank]!
+	transactions: [Transaction]!
+	budget: Budget!
+}
+
+type Bank {
+	id: ID! @unique
+	name: String!
+}
+
+type Transaction {
+	id: ID! @unique
+	amount: Int!
+	date: DateTime!
+	description: String
+	externalBankID: String
+	externalTransactionID: String
+	ignored: Boolean!
+	merchant: String
+	allocated: [LineItem]!
+}
+
+type Budget {
+	budgetGroups: [BudgetGroup]!
+}
+
+type BudgetGroup {
+	id: ID! @unique
+	header: String!
+	draggable: Boolean! @default(value: true)
+	addable: Boolean! @default(value: true)
+	minimized: Boolean! @default(value: false)
+	maxLineItems: Int! @default(value: 20)
+	listPosition: Int!
+	lineItems: [LineItem]!
+}
+
+type LineItem {
+	id: ID! @unique
+	title: String!
+	planned: Int!
+	actual: Int!
+	listPosition: Int!
+	note: String!
+	assignedTransactions: [Transaction]!
+	isFund: Boolean! @default(value: false)
 }

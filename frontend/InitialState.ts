@@ -35,9 +35,7 @@ export default {
 		transactions: [
 			{
 				id: 'asdf3ro9haflqkef0',
-				amount: {
-					usd: -120.19
-				},
+				amount: -120.19,
 				date: '2018-09-19',
 				description: 'MEIJER #232        Q01   MUSKEGO',
 				externalBankID: 'fn45984204',
