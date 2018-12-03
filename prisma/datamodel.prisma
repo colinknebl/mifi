@@ -7,9 +7,9 @@ type User {
 	email: String! @unique
 	createdAt: DateTime!
 	updatedAt: DateTime!
-	lastLogin: DateTime!
-	settings: UserSettings!
-	accessToken: [String!]!
+	lastLogin: DateTime
+	settings: UserSettings
+	accessToken: String
 	lastLoginState: UserLastLoginState
 }
 
