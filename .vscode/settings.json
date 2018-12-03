@@ -5,6 +5,8 @@
       "titleBar.activeBackground": "#6fbf41",
       "titleBar.inactiveBackground": "#6fbf41",
       "editor.tabSize": 4,
-    }
+    },
+    "editor.formatOnPaste": true,
+    "editor.formatOnSave": true
   }
   

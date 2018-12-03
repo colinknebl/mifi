@@ -1,29 +1,31 @@
-import React, { Component } from 'react';
-import Header from './Header';
+import React from 'react';
+import Meta from './Meta';
 
-class Page extends Component {
-    
-    static async getInitialProps ({ Component, router, ctx }) {
-        let pageProps = {}
+/**
+ * wrapper for the page
+ * @param props component properties
+ */
 
-        // console.log('Component.getInitialProps :', Component, router, ctx);
-        if (Component.getInitialProps) {
-            pageProps = await Component.getInitialProps(ctx);
-        }
+// const Page = props => (
+// 	<>
+// <Meta />
+// <main className="App">{props.children}</main>
+// 	</>
+// );
 
-        return { pageProps };
-    }
-
-    render() {
-
-        return (
-            <main className="App">
-                {/* <Header /> */}
-                {/* loads the component */}
-                {this.props.children}
-            </main>
-        );
-    }
+class Page extends React.Component {
+	methods = {
+		method1: () => console.log('method 1')
+	};
+	render() {
+		console.log(this.props.children);
+		return (
+			<>
+				<Meta />
+				<main className="App">{this.props.children(this.methods)}</main>
+			</>
+		);
+	}
 }
 
 export default Page;

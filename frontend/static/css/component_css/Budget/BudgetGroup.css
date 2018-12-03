@@ -1,0 +1,105 @@
+.BudgetGroup {
+    background: white;
+    border-radius: var(--budget-group-border-radius);
+    box-shadow: 0px 0px 10px -3px var(--font-color);
+    padding: var(--group-padding);
+    min-width: 565px;
+    position: relative;
+    display: grid;
+    /* grid-template-columns: var(--BudgetGroupGridCols); */
+    grid-template-columns: var(--budget-group-grid-cols);
+    grid-gap: var(--budget-group-grid-gap);
+    grid-template-areas: 
+        'header planned received'
+        'list list list'
+    ;
+    align-items: center;
+}
+
+.BudgetGroup--collapsed {
+    grid-row-gap: initial;
+}
+
+.BudgetGroup:hover .BudgetGroup--grip-container {
+    display: block;
+}
+
+.BudgetGroup[draggable='false'] .BudgetGroup--grip-container {
+    display: none;
+}
+
+.BudgetGroupList--dragging .BudgetGroup:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    background: transparent;
+    z-index: 100;
+    cursor: grabbing;
+}
+
+.BudgetGroup--grip-container {
+    display: none;
+    position: absolute;
+    top: 30px;
+    left: 9px;
+    cursor: grab;
+    opacity: .5;
+}
+.BudgetGroup--grip-container:active {
+    cursor: grabbing;
+}
+.fa-ellipsis-v:first-child {
+    padding-right: 2px;
+}
+
+.BudgetGroup__header {
+    grid-area: header;
+}
+
+.BudgetGroup__caret-icon {
+    font-size: 20px;
+}
+
+.BudgetGroup__caret-icon i {
+    font-size: 20px;
+}
+
+.BudgetGroup__column--right {
+    text-align: right;
+}
+
+/* .column-header__planned {
+    grid-area: planned;
+}
+
+.column-header__received {
+    grid-area: received;
+} */
+
+.BudgetGroup--collapsed .BudgetGroup__line-item-list,
+.BudgetGroup--collapsed .BudgetGroup__add-item-btn {
+    display: none;
+}
+
+.BudgetGroup__line-item-list {
+    grid-area: list;
+}
+
+.BudgetGroup__add-item-btn {
+    border: none;
+    background: white;
+    position: relative;
+    left: -.5rem;
+    font-size: 1rem;
+    color: var(--blue);
+    cursor: pointer;
+    justify-self: start;
+}
+.BudgetGroup__add-item-btn:hover {
+    color: var(--dark-blue);
+}
+
+/* ================================================= */
+

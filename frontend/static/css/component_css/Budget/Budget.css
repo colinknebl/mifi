@@ -1,0 +1,49 @@
+.Budget {
+	display: grid;
+	grid-gap: 1rem;
+	grid-template-columns: 1fr minmax(min-content, 350px);
+	grid-template-areas:
+		'BudgetPageHeader BudgetPageHeader'
+		'BudgetGroupList BudgetGraphSection';
+}
+
+.BudgetGroupList {
+	display: grid;
+	grid-gap: 1rem;
+	margin-right: 1rem;
+	position: relative;
+	z-index: 0;
+}
+
+.BudgetGroup--dragged {
+	position: relative;
+	border-radius: var(--budget-group-border-radius);
+	background: rgb(231, 249, 255);
+	opacity: 0.2;
+}
+
+.BudgetGroup--dragged:after {
+	content: '';
+	position: absolute;
+	width: 100%;
+	top: 0;
+	bottom: 0;
+	z-index: 1;
+}
+
+@media screen and (max-width: 1000px) {
+	/* .Budget {
+		grid-template-columns: minmax(max-content, 60px) 6fr 3fr;
+	} */
+}
+
+@media screen and (max-width: 800px) {
+	/* .Budget {
+		grid-template-columns: minmax(max-content, 60px) auto;
+		grid-template-areas:
+			'sidebar header'
+			'sidebar summary'
+			'sidebar budget-group-list'
+		;
+	} */
+}

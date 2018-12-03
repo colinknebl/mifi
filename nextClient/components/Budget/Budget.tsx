@@ -26,7 +26,7 @@ class Budget extends React.Component<any, any> {
 
 	constructor(props: any) {
 		super(props);
-		console.log('props in budget', props);
+		console.log('props', props);
 
 		// this.user = props.state.user;
 		this.methods = props.methods;
