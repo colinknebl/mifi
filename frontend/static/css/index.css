@@ -10,10 +10,6 @@
 /* App styles */
 @import './App.css';
 
-/* Import Login component styles */
-@import './component_css/login.css';
-
-
 /* Budget */
 @import './component_css/Budget/Budget.css';
 @import './component_css/Budget/BudgetPageHeader.css';
@@ -25,10 +21,14 @@
 @import './component_css/Budget/BudgetPageHeader.css';
 @import './component_css/Budget/LineItemDetails.css';
 
-
 /* Navigation */
 @import './component_css/Navigation/AppNavigationBar.css';
 
-
 /* Dashboard */
 @import './component_css/Dashboard.css';
+
+/* Signup */
+@import './component_css/Signup.css';
+
+/* Login */
+@import './component_css/Login.css';

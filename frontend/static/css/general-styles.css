@@ -131,14 +131,12 @@ svg {
 */
 .input {
 	/* border: 1px solid var(--pri-color); */
+	border-radius: var(--border-radius);
 	border: none;
-	box-sizing: border-box;
-	outline: none;
 	padding: 0.8rem;
 	margin: 0.5rem;
 	font-size: 1.2rem;
 	display: block;
-	border-radius: var(--border-radius);
 }
 .input-text {
 	border: 2px solid grey;
@@ -146,6 +144,14 @@ svg {
 .input-text:focus {
 	border-color: var(--pri-color);
 	box-shadow: 0px 0px 5px 1px grey inset;
+}
+select {
+	/* the appearance attribute removes the default arrows and fixes padding */
+	-webkit-appearance: none;
+	appearance: none;
+	font-size: 1.2rem;
+	color: var(--font-color);
+	padding: 1rem;
 }
 
 /* 
@@ -160,4 +166,95 @@ svg {
 }
 .link:hover {
 	color: red;
+}
+
+/* 
+	Form page styles (login & signup pages)
+*/
+.form-page {
+	background-image: var(--grid-img);
+	background-size: 100%;
+	box-sizing: border-box;
+	min-height: 100vh;
+}
+
+.form-page__logo-container {
+	height: 100px;
+	width: 100px;
+	margin: 20px auto;
+}
+
+.form-page__content-container {
+	border-radius: var(--border-radius);
+	background: var(--linear-gradient-white);
+	box-shadow: var(--box-shadow);
+	max-width: 800px;
+	margin: auto;
+	padding: 2rem;
+}
+
+.form-page__form-title {
+	text-align: center;
+	padding: 1rem;
+}
+
+.form {
+	position: relative;
+	display: grid;
+	grid-gap: 2rem;
+}
+
+.form-page__input-group {
+	display: grid;
+	position: relative;
+}
+
+.form-page__input-placeholder {
+	display: inline-block;
+	transform-origin: top left;
+	transform: translateY(25px) scale(1.2);
+	transition: all 0.25s;
+}
+
+.form-page__input--filled .form-page__input-placeholder {
+	transform: translateY(0px) scale(0.75);
+}
+
+.form-page__input {
+	background: transparent;
+	border-bottom: 3px solid var(--pri-color);
+	border-radius: initial;
+	padding: 0.5rem 0;
+	margin: initial;
+	background: transparent;
+	position: relative;
+}
+
+.form-page .fa-caret-down {
+	position: absolute;
+	font-size: 2rem;
+	right: 15px;
+	top: 13px;
+}
+
+.form-page .submit-btn {
+	grid-area: submit;
+}
+
+.form-page__footer {
+	padding-top: 1rem;
+	text-align: center;
+}
+
+.form-page__footer-text {
+	padding-top: 1rem;
+	display: inline-block;
+}
+
+.form-page__footer-link {
+	color: var(--light-orange);
+	text-decoration: none;
+}
+.form-page__footer-link:hover {
+	color: var(--dark-orange);
 }

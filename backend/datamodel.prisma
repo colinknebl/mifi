@@ -1,29 +1,34 @@
 # user type definitions
 type User {
 	id: ID! @unique
+	password: String!
 	firstName: String!
 	lastName: String!
 	middleName: String
 	email: String! @unique
+	zip: String!
+	premiumUser: Boolean! @default(value: false)
+	resetToken: String
+	resetTokenExpirary: Float
+	lastLogin: DateTime
+	accessToken: String
+	settings: UserSettings
+	lastLoginState: UserLastLoginState
 	createdAt: DateTime!
 	updatedAt: DateTime!
-	lastLogin: DateTime
-	settings: UserSettings
-	accessToken: String
-	lastLoginState: UserLastLoginState
 }
 
 type UserSettings {
-	currency: String!
+	currency: String! @default(value: "US")
 }
 
 type UserLastLoginState {
-	monthSelector: MonthYear!
+	monthSelector: MonthYear
 }
 
 type MonthYear {
-	month: Int!
-	year: Int!
+	month: Int
+	year: Int
 }
 
 # finances type definitions

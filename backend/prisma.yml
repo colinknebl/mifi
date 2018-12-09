@@ -5,4 +5,4 @@ hooks:
     post-deploy:
         - echo Prisma Endpoint .::. ${env:PRISMA_ENDPOINT}
         - graphql get-schema --project prisma
-        - graphql codegen
+        # - graphql codegen

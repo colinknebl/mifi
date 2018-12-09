@@ -1,24 +1,47 @@
 import React, { Component } from 'react';
+import { Query } from 'react-apollo';
 import InitialState from '../InitialState';
 import AppNavigationBar from './app/Navigation/AppNavigationBar';
+import { USER_QUERY } from './gql/query';
+import route from '../lib/route';
 
 import getParents from '../lib/getParents';
 
-class AppWrapper extends Component {
+type Props = {
+	children: any;
+	router: any;
+};
+
+class AppWrapper extends Component<Props> {
 	state: any = InitialState;
 
 	render() {
 		if (typeof this.props.children === 'function') {
 			return (
-				<>
-					<AppNavigationBar />
-					<main className="App__content-container">
-						{this.props.children({
-							state: this.state,
-							methods: this.methods
-						})}
-					</main>
-				</>
+				// @ts-ignore
+				<Query
+					query={USER_QUERY}
+					variables={{ id: this.props.router.query.id }}
+				>
+					{({ data, error, loading }) => {
+						if (loading) return <p>Loading...</p>;
+						if (!(data || {}).user) {
+							return route('/login');
+						}
+						return (
+							<>
+								<AppNavigationBar />
+								<main className="App__content-container">
+									{this.props.children({
+										state: this.state,
+										methods: this.methods,
+										user: data.user
+									})}
+								</main>
+							</>
+						);
+					}}
+				</Query>
 			);
 		} else {
 			return <>{this.props.children}</>;

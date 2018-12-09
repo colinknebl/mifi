@@ -25,7 +25,7 @@ class AppNavigationBar extends React.Component {
 								liClassName: 'AppNavigationBar__navigation-li',
 								linkClassName:
 									'AppNavigationBar__navigation-link',
-								linkTo: 'budget',
+								linkTo: '/app/budget',
 								title: 'Budget',
 								titleClass:
 									'AppNavigationBar__navigation-description'

@@ -1,0 +1,37 @@
+.Signup__form {
+	grid-template-columns: 1fr 1fr;
+	grid-template-areas:
+		'firstName lastName'
+		'email email'
+		'password confirmPassword'
+		'country country'
+		'zip zip'
+		'submit submit';
+}
+
+.Signup__input-group--firstName {
+	grid-area: firstName;
+}
+
+.Signup__input-group--lastName {
+	grid-area: lastName;
+}
+
+.Signup__input-group--email {
+	grid-area: email;
+}
+
+.Signup__input-group--password {
+	grid-area: password;
+}
+
+.Signup__input-group--confirm-password {
+	grid-area: confirmPassword;
+}
+
+.Signup__input-group--country {
+	grid-area: country;
+}
+.Signup__input-group--zip {
+	grid-area: zip;
+}
