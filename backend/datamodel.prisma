@@ -16,6 +16,7 @@ type User {
 	lastLoginState: UserLastLoginState
 	createdAt: DateTime!
 	updatedAt: DateTime!
+	finances: Finances
 }
 
 type UserSettings {
@@ -33,9 +34,11 @@ type MonthYear {
 
 # finances type definitions
 type Finances {
+	id: ID! @unique
 	banks: [Bank]!
 	transactions: [Transaction]!
 	budget: Budget!
+	user: User!
 }
 
 type Bank {

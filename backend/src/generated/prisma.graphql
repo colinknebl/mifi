@@ -1,5 +1,5 @@
 # source: https://us1.prisma.sh/colin-knebl/mifi_backend/dev
-# timestamp: Sat Dec 08 2018 11:07:17 GMT-0500 (Eastern Standard Time)
+# timestamp: Fri Dec 21 2018 19:35:59 GMT-0500 (Eastern Standard Time)
 
 type AggregateBank {
   count: Int!
@@ -90,6 +90,97 @@ type BankPreviousValues {
   name: String!
 }
 
+input BankScalarWhereInput {
+  """Logical AND on all given filters."""
+  AND: [BankScalarWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [BankScalarWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [BankScalarWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  name: String
+
+  """All values that are not equal to given value."""
+  name_not: String
+
+  """All values that are contained in given list."""
+  name_in: [String!]
+
+  """All values that are not contained in given list."""
+  name_not_in: [String!]
+
+  """All values less than the given value."""
+  name_lt: String
+
+  """All values less than or equal the given value."""
+  name_lte: String
+
+  """All values greater than the given value."""
+  name_gt: String
+
+  """All values greater than or equal the given value."""
+  name_gte: String
+
+  """All values containing the given string."""
+  name_contains: String
+
+  """All values not containing the given string."""
+  name_not_contains: String
+
+  """All values starting with the given string."""
+  name_starts_with: String
+
+  """All values not starting with the given string."""
+  name_not_starts_with: String
+
+  """All values ending with the given string."""
+  name_ends_with: String
+
+  """All values not ending with the given string."""
+  name_not_ends_with: String
+}
+
 type BankSubscriptionPayload {
   mutation: MutationType!
   node: Bank
@@ -129,12 +220,47 @@ input BankSubscriptionWhereInput {
   node: BankWhereInput
 }
 
+input BankUpdateDataInput {
+  name: String
+}
+
 input BankUpdateInput {
   name: String
 }
 
+input BankUpdateManyDataInput {
+  name: String
+}
+
+input BankUpdateManyInput {
+  create: [BankCreateInput!]
+  connect: [BankWhereUniqueInput!]
+  disconnect: [BankWhereUniqueInput!]
+  delete: [BankWhereUniqueInput!]
+  update: [BankUpdateWithWhereUniqueNestedInput!]
+  updateMany: [BankUpdateManyWithWhereNestedInput!]
+  deleteMany: [BankScalarWhereInput!]
+  upsert: [BankUpsertWithWhereUniqueNestedInput!]
+}
+
 input BankUpdateManyMutationInput {
   name: String
+}
+
+input BankUpdateManyWithWhereNestedInput {
+  where: BankScalarWhereInput!
+  data: BankUpdateManyDataInput!
+}
+
+input BankUpdateWithWhereUniqueNestedInput {
+  where: BankWhereUniqueInput!
+  data: BankUpdateDataInput!
+}
+
+input BankUpsertWithWhereUniqueNestedInput {
+  where: BankWhereUniqueInput!
+  update: BankUpdateDataInput!
+  create: BankCreateInput!
 }
 
 input BankWhereInput {
@@ -344,6 +470,153 @@ type BudgetGroupPreviousValues {
   listPosition: Int!
 }
 
+input BudgetGroupScalarWhereInput {
+  """Logical AND on all given filters."""
+  AND: [BudgetGroupScalarWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [BudgetGroupScalarWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [BudgetGroupScalarWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  header: String
+
+  """All values that are not equal to given value."""
+  header_not: String
+
+  """All values that are contained in given list."""
+  header_in: [String!]
+
+  """All values that are not contained in given list."""
+  header_not_in: [String!]
+
+  """All values less than the given value."""
+  header_lt: String
+
+  """All values less than or equal the given value."""
+  header_lte: String
+
+  """All values greater than the given value."""
+  header_gt: String
+
+  """All values greater than or equal the given value."""
+  header_gte: String
+
+  """All values containing the given string."""
+  header_contains: String
+
+  """All values not containing the given string."""
+  header_not_contains: String
+
+  """All values starting with the given string."""
+  header_starts_with: String
+
+  """All values not starting with the given string."""
+  header_not_starts_with: String
+
+  """All values ending with the given string."""
+  header_ends_with: String
+
+  """All values not ending with the given string."""
+  header_not_ends_with: String
+  draggable: Boolean
+
+  """All values that are not equal to given value."""
+  draggable_not: Boolean
+  addable: Boolean
+
+  """All values that are not equal to given value."""
+  addable_not: Boolean
+  minimized: Boolean
+
+  """All values that are not equal to given value."""
+  minimized_not: Boolean
+  maxLineItems: Int
+
+  """All values that are not equal to given value."""
+  maxLineItems_not: Int
+
+  """All values that are contained in given list."""
+  maxLineItems_in: [Int!]
+
+  """All values that are not contained in given list."""
+  maxLineItems_not_in: [Int!]
+
+  """All values less than the given value."""
+  maxLineItems_lt: Int
+
+  """All values less than or equal the given value."""
+  maxLineItems_lte: Int
+
+  """All values greater than the given value."""
+  maxLineItems_gt: Int
+
+  """All values greater than or equal the given value."""
+  maxLineItems_gte: Int
+  listPosition: Int
+
+  """All values that are not equal to given value."""
+  listPosition_not: Int
+
+  """All values that are contained in given list."""
+  listPosition_in: [Int!]
+
+  """All values that are not contained in given list."""
+  listPosition_not_in: [Int!]
+
+  """All values less than the given value."""
+  listPosition_lt: Int
+
+  """All values less than or equal the given value."""
+  listPosition_lte: Int
+
+  """All values greater than the given value."""
+  listPosition_gt: Int
+
+  """All values greater than or equal the given value."""
+  listPosition_gte: Int
+}
+
 type BudgetGroupSubscriptionPayload {
   mutation: MutationType!
   node: BudgetGroup
@@ -383,6 +656,16 @@ input BudgetGroupSubscriptionWhereInput {
   node: BudgetGroupWhereInput
 }
 
+input BudgetGroupUpdateDataInput {
+  header: String
+  draggable: Boolean
+  addable: Boolean
+  minimized: Boolean
+  maxLineItems: Int
+  listPosition: Int
+  lineItems: LineItemUpdateManyInput
+}
+
 input BudgetGroupUpdateInput {
   header: String
   draggable: Boolean
@@ -393,6 +676,26 @@ input BudgetGroupUpdateInput {
   lineItems: LineItemUpdateManyInput
 }
 
+input BudgetGroupUpdateManyDataInput {
+  header: String
+  draggable: Boolean
+  addable: Boolean
+  minimized: Boolean
+  maxLineItems: Int
+  listPosition: Int
+}
+
+input BudgetGroupUpdateManyInput {
+  create: [BudgetGroupCreateInput!]
+  connect: [BudgetGroupWhereUniqueInput!]
+  disconnect: [BudgetGroupWhereUniqueInput!]
+  delete: [BudgetGroupWhereUniqueInput!]
+  update: [BudgetGroupUpdateWithWhereUniqueNestedInput!]
+  updateMany: [BudgetGroupUpdateManyWithWhereNestedInput!]
+  deleteMany: [BudgetGroupScalarWhereInput!]
+  upsert: [BudgetGroupUpsertWithWhereUniqueNestedInput!]
+}
+
 input BudgetGroupUpdateManyMutationInput {
   header: String
   draggable: Boolean
@@ -400,6 +703,22 @@ input BudgetGroupUpdateManyMutationInput {
   minimized: Boolean
   maxLineItems: Int
   listPosition: Int
+}
+
+input BudgetGroupUpdateManyWithWhereNestedInput {
+  where: BudgetGroupScalarWhereInput!
+  data: BudgetGroupUpdateManyDataInput!
+}
+
+input BudgetGroupUpdateWithWhereUniqueNestedInput {
+  where: BudgetGroupWhereUniqueInput!
+  data: BudgetGroupUpdateDataInput!
+}
+
+input BudgetGroupUpsertWithWhereUniqueNestedInput {
+  where: BudgetGroupWhereUniqueInput!
+  update: BudgetGroupUpdateDataInput!
+  create: BudgetGroupCreateInput!
 }
 
 input BudgetGroupWhereInput {
@@ -603,6 +922,21 @@ input BudgetSubscriptionWhereInput {
   node: BudgetWhereInput
 }
 
+input BudgetUpdateDataInput {
+  budgetGroups: BudgetGroupUpdateManyInput
+}
+
+input BudgetUpdateOneRequiredInput {
+  create: BudgetCreateInput
+  update: BudgetUpdateDataInput
+  upsert: BudgetUpsertNestedInput
+}
+
+input BudgetUpsertNestedInput {
+  update: BudgetUpdateDataInput!
+  create: BudgetCreateInput!
+}
+
 input BudgetWhereInput {
   """Logical AND on all given filters."""
   AND: [BudgetWhereInput!]
@@ -619,10 +953,12 @@ input BudgetWhereInput {
 
 scalar DateTime
 
-type Finances {
+type Finances implements Node {
+  id: ID!
   banks(where: BankWhereInput, orderBy: BankOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Bank!]
   transactions(where: TransactionWhereInput, orderBy: TransactionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Transaction!]
   budget: Budget!
+  user: User!
 }
 
 """A connection to a list of items."""
@@ -636,6 +972,18 @@ type FinancesConnection {
 }
 
 input FinancesCreateInput {
+  banks: BankCreateManyInput
+  transactions: TransactionCreateManyInput
+  budget: BudgetCreateOneInput!
+  user: UserCreateOneWithoutFinancesInput!
+}
+
+input FinancesCreateOneWithoutUserInput {
+  create: FinancesCreateWithoutUserInput
+  connect: FinancesWhereUniqueInput
+}
+
+input FinancesCreateWithoutUserInput {
   banks: BankCreateManyInput
   transactions: TransactionCreateManyInput
   budget: BudgetCreateOneInput!
@@ -659,10 +1007,15 @@ enum FinancesOrderByInput {
   createdAt_DESC
 }
 
+type FinancesPreviousValues {
+  id: ID!
+}
+
 type FinancesSubscriptionPayload {
   mutation: MutationType!
   node: Finances
   updatedFields: [String!]
+  previousValues: FinancesPreviousValues
 }
 
 input FinancesSubscriptionWhereInput {
@@ -697,6 +1050,33 @@ input FinancesSubscriptionWhereInput {
   node: FinancesWhereInput
 }
 
+input FinancesUpdateInput {
+  banks: BankUpdateManyInput
+  transactions: TransactionUpdateManyInput
+  budget: BudgetUpdateOneRequiredInput
+  user: UserUpdateOneRequiredWithoutFinancesInput
+}
+
+input FinancesUpdateOneWithoutUserInput {
+  create: FinancesCreateWithoutUserInput
+  connect: FinancesWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: FinancesUpdateWithoutUserDataInput
+  upsert: FinancesUpsertWithoutUserInput
+}
+
+input FinancesUpdateWithoutUserDataInput {
+  banks: BankUpdateManyInput
+  transactions: TransactionUpdateManyInput
+  budget: BudgetUpdateOneRequiredInput
+}
+
+input FinancesUpsertWithoutUserInput {
+  update: FinancesUpdateWithoutUserDataInput!
+  create: FinancesCreateWithoutUserInput!
+}
+
 input FinancesWhereInput {
   """Logical AND on all given filters."""
   AND: [FinancesWhereInput!]
@@ -706,6 +1086,46 @@ input FinancesWhereInput {
 
   """Logical NOT on all given filters combined by AND."""
   NOT: [FinancesWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
   banks_every: BankWhereInput
   banks_some: BankWhereInput
   banks_none: BankWhereInput
@@ -713,6 +1133,11 @@ input FinancesWhereInput {
   transactions_some: TransactionWhereInput
   transactions_none: TransactionWhereInput
   budget: BudgetWhereInput
+  user: UserWhereInput
+}
+
+input FinancesWhereUniqueInput {
+  id: ID
 }
 
 type LineItem implements Node {
@@ -1535,16 +1960,19 @@ type Mutation {
   createBudgetGroup(data: BudgetGroupCreateInput!): BudgetGroup!
   createLineItem(data: LineItemCreateInput!): LineItem!
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
+  updateFinances(data: FinancesUpdateInput!, where: FinancesWhereUniqueInput!): Finances
   updateBank(data: BankUpdateInput!, where: BankWhereUniqueInput!): Bank
   updateTransaction(data: TransactionUpdateInput!, where: TransactionWhereUniqueInput!): Transaction
   updateBudgetGroup(data: BudgetGroupUpdateInput!, where: BudgetGroupWhereUniqueInput!): BudgetGroup
   updateLineItem(data: LineItemUpdateInput!, where: LineItemWhereUniqueInput!): LineItem
   deleteUser(where: UserWhereUniqueInput!): User
+  deleteFinances(where: FinancesWhereUniqueInput!): Finances
   deleteBank(where: BankWhereUniqueInput!): Bank
   deleteTransaction(where: TransactionWhereUniqueInput!): Transaction
   deleteBudgetGroup(where: BudgetGroupWhereUniqueInput!): BudgetGroup
   deleteLineItem(where: LineItemWhereUniqueInput!): LineItem
   upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
+  upsertFinances(where: FinancesWhereUniqueInput!, create: FinancesCreateInput!, update: FinancesUpdateInput!): Finances!
   upsertBank(where: BankWhereUniqueInput!, create: BankCreateInput!, update: BankUpdateInput!): Bank!
   upsertTransaction(where: TransactionWhereUniqueInput!, create: TransactionCreateInput!, update: TransactionUpdateInput!): Transaction!
   upsertBudgetGroup(where: BudgetGroupWhereUniqueInput!, create: BudgetGroupCreateInput!, update: BudgetGroupUpdateInput!): BudgetGroup!
@@ -1607,6 +2035,7 @@ type Query {
   budgetGroups(where: BudgetGroupWhereInput, orderBy: BudgetGroupOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [BudgetGroup]!
   lineItems(where: LineItemWhereInput, orderBy: LineItemOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [LineItem]!
   user(where: UserWhereUniqueInput!): User
+  finances(where: FinancesWhereUniqueInput!): Finances
   bank(where: BankWhereUniqueInput!): Bank
   transaction(where: TransactionWhereUniqueInput!): Transaction
   budgetGroup(where: BudgetGroupWhereUniqueInput!): BudgetGroup
@@ -2036,6 +2465,17 @@ input TransactionSubscriptionWhereInput {
   node: TransactionWhereInput
 }
 
+input TransactionUpdateDataInput {
+  amount: Int
+  date: DateTime
+  description: String
+  externalBankID: String
+  externalTransactionID: String
+  ignored: Boolean
+  merchant: String
+  allocated: LineItemUpdateManyWithoutAssignedTransactionsInput
+}
+
 input TransactionUpdateInput {
   amount: Int
   date: DateTime
@@ -2055,6 +2495,17 @@ input TransactionUpdateManyDataInput {
   externalTransactionID: String
   ignored: Boolean
   merchant: String
+}
+
+input TransactionUpdateManyInput {
+  create: [TransactionCreateInput!]
+  connect: [TransactionWhereUniqueInput!]
+  disconnect: [TransactionWhereUniqueInput!]
+  delete: [TransactionWhereUniqueInput!]
+  update: [TransactionUpdateWithWhereUniqueNestedInput!]
+  updateMany: [TransactionUpdateManyWithWhereNestedInput!]
+  deleteMany: [TransactionScalarWhereInput!]
+  upsert: [TransactionUpsertWithWhereUniqueNestedInput!]
 }
 
 input TransactionUpdateManyMutationInput {
@@ -2093,9 +2544,20 @@ input TransactionUpdateWithoutAllocatedDataInput {
   merchant: String
 }
 
+input TransactionUpdateWithWhereUniqueNestedInput {
+  where: TransactionWhereUniqueInput!
+  data: TransactionUpdateDataInput!
+}
+
 input TransactionUpdateWithWhereUniqueWithoutAllocatedInput {
   where: TransactionWhereUniqueInput!
   data: TransactionUpdateWithoutAllocatedDataInput!
+}
+
+input TransactionUpsertWithWhereUniqueNestedInput {
+  where: TransactionWhereUniqueInput!
+  update: TransactionUpdateDataInput!
+  create: TransactionCreateInput!
 }
 
 input TransactionUpsertWithWhereUniqueWithoutAllocatedInput {
@@ -2372,12 +2834,12 @@ input TransactionWhereUniqueInput {
 
 type User implements Node {
   id: ID!
+  password: String!
   firstName: String!
   lastName: String!
   middleName: String
   email: String!
   zip: String!
-  password: String!
   premiumUser: Boolean!
   resetToken: String
   resetTokenExpirary: Float
@@ -2387,6 +2849,7 @@ type User implements Node {
   lastLoginState: UserLastLoginState
   createdAt: DateTime!
   updatedAt: DateTime!
+  finances: Finances
 }
 
 """A connection to a list of items."""
@@ -2400,12 +2863,34 @@ type UserConnection {
 }
 
 input UserCreateInput {
+  password: String!
   firstName: String!
   lastName: String!
   middleName: String
   email: String!
   zip: String!
+  premiumUser: Boolean
+  resetToken: String
+  resetTokenExpirary: Float
+  lastLogin: DateTime
+  accessToken: String
+  settings: UserSettingsCreateOneInput
+  lastLoginState: UserLastLoginStateCreateOneInput
+  finances: FinancesCreateOneWithoutUserInput
+}
+
+input UserCreateOneWithoutFinancesInput {
+  create: UserCreateWithoutFinancesInput
+  connect: UserWhereUniqueInput
+}
+
+input UserCreateWithoutFinancesInput {
   password: String!
+  firstName: String!
+  lastName: String!
+  middleName: String
+  email: String!
+  zip: String!
   premiumUser: Boolean
   resetToken: String
   resetTokenExpirary: Float
@@ -2534,6 +3019,8 @@ input UserLastLoginStateWhereInput {
 enum UserOrderByInput {
   id_ASC
   id_DESC
+  password_ASC
+  password_DESC
   firstName_ASC
   firstName_DESC
   lastName_ASC
@@ -2544,8 +3031,6 @@ enum UserOrderByInput {
   email_DESC
   zip_ASC
   zip_DESC
-  password_ASC
-  password_DESC
   premiumUser_ASC
   premiumUser_DESC
   resetToken_ASC
@@ -2564,12 +3049,12 @@ enum UserOrderByInput {
 
 type UserPreviousValues {
   id: ID!
+  password: String!
   firstName: String!
   lastName: String!
   middleName: String
   email: String!
   zip: String!
-  password: String!
   premiumUser: Boolean!
   resetToken: String
   resetTokenExpirary: Float
@@ -2776,12 +3261,50 @@ input UserSubscriptionWhereInput {
 }
 
 input UserUpdateInput {
+  password: String
   firstName: String
   lastName: String
   middleName: String
   email: String
   zip: String
+  premiumUser: Boolean
+  resetToken: String
+  resetTokenExpirary: Float
+  lastLogin: DateTime
+  accessToken: String
+  settings: UserSettingsUpdateOneInput
+  lastLoginState: UserLastLoginStateUpdateOneInput
+  finances: FinancesUpdateOneWithoutUserInput
+}
+
+input UserUpdateManyMutationInput {
   password: String
+  firstName: String
+  lastName: String
+  middleName: String
+  email: String
+  zip: String
+  premiumUser: Boolean
+  resetToken: String
+  resetTokenExpirary: Float
+  lastLogin: DateTime
+  accessToken: String
+}
+
+input UserUpdateOneRequiredWithoutFinancesInput {
+  create: UserCreateWithoutFinancesInput
+  connect: UserWhereUniqueInput
+  update: UserUpdateWithoutFinancesDataInput
+  upsert: UserUpsertWithoutFinancesInput
+}
+
+input UserUpdateWithoutFinancesDataInput {
+  password: String
+  firstName: String
+  lastName: String
+  middleName: String
+  email: String
+  zip: String
   premiumUser: Boolean
   resetToken: String
   resetTokenExpirary: Float
@@ -2791,18 +3314,9 @@ input UserUpdateInput {
   lastLoginState: UserLastLoginStateUpdateOneInput
 }
 
-input UserUpdateManyMutationInput {
-  firstName: String
-  lastName: String
-  middleName: String
-  email: String
-  zip: String
-  password: String
-  premiumUser: Boolean
-  resetToken: String
-  resetTokenExpirary: Float
-  lastLogin: DateTime
-  accessToken: String
+input UserUpsertWithoutFinancesInput {
+  update: UserUpdateWithoutFinancesDataInput!
+  create: UserCreateWithoutFinancesInput!
 }
 
 input UserWhereInput {
@@ -2854,6 +3368,46 @@ input UserWhereInput {
 
   """All values not ending with the given string."""
   id_not_ends_with: ID
+  password: String
+
+  """All values that are not equal to given value."""
+  password_not: String
+
+  """All values that are contained in given list."""
+  password_in: [String!]
+
+  """All values that are not contained in given list."""
+  password_not_in: [String!]
+
+  """All values less than the given value."""
+  password_lt: String
+
+  """All values less than or equal the given value."""
+  password_lte: String
+
+  """All values greater than the given value."""
+  password_gt: String
+
+  """All values greater than or equal the given value."""
+  password_gte: String
+
+  """All values containing the given string."""
+  password_contains: String
+
+  """All values not containing the given string."""
+  password_not_contains: String
+
+  """All values starting with the given string."""
+  password_starts_with: String
+
+  """All values not starting with the given string."""
+  password_not_starts_with: String
+
+  """All values ending with the given string."""
+  password_ends_with: String
+
+  """All values not ending with the given string."""
+  password_not_ends_with: String
   firstName: String
 
   """All values that are not equal to given value."""
@@ -3054,46 +3608,6 @@ input UserWhereInput {
 
   """All values not ending with the given string."""
   zip_not_ends_with: String
-  password: String
-
-  """All values that are not equal to given value."""
-  password_not: String
-
-  """All values that are contained in given list."""
-  password_in: [String!]
-
-  """All values that are not contained in given list."""
-  password_not_in: [String!]
-
-  """All values less than the given value."""
-  password_lt: String
-
-  """All values less than or equal the given value."""
-  password_lte: String
-
-  """All values greater than the given value."""
-  password_gt: String
-
-  """All values greater than or equal the given value."""
-  password_gte: String
-
-  """All values containing the given string."""
-  password_contains: String
-
-  """All values not containing the given string."""
-  password_not_contains: String
-
-  """All values starting with the given string."""
-  password_starts_with: String
-
-  """All values not starting with the given string."""
-  password_not_starts_with: String
-
-  """All values ending with the given string."""
-  password_ends_with: String
-
-  """All values not ending with the given string."""
-  password_not_ends_with: String
   premiumUser: Boolean
 
   """All values that are not equal to given value."""
@@ -3268,6 +3782,7 @@ input UserWhereInput {
   updatedAt_gte: DateTime
   settings: UserSettingsWhereInput
   lastLoginState: UserLastLoginStateWhereInput
+  finances: FinancesWhereInput
 }
 
 input UserWhereUniqueInput {

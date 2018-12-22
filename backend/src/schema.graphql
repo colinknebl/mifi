@@ -16,4 +16,5 @@ type Mutation {
 
 type Query {
 	user(where: UserWhereUniqueInput!): User!
+	loggedInUser: User!
 }

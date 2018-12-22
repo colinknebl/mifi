@@ -1,16 +1,16 @@
 .App {
-    position: relative;
+	position: relative;
 }
 
 .App__content-container {
-    margin-left: 280px;
-    padding: 1rem;
-    min-height: 100vh;
+	background-color: #f5f7f8;
+	margin-left: 280px;
+	padding: 1rem;
+	min-height: 100vh;
 }
 
 @media screen and (max-width: 1200px) {
-    .App__content-container {
-        margin-left: 67.02px;
-    
-    }
+	.App__content-container {
+		margin-left: 67.02px;
+	}
 }

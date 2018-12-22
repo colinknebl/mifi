@@ -37,7 +37,6 @@ const Mutations = {
 	},
 
 	async signIn(parent, args, ctx, info) {
-		console.log('args', args);
 		const { email, password } = args;
 		// 1. check if there is a user with that email
 		const user = await ctx.db.query.user({ where: { email: email } });

@@ -22,7 +22,6 @@ class Login extends Component {
 		if (!user) {
 			throw new Error('Username and/or password is incorrect.');
 		}
-		console.log('user :', user);
 		this.setState({
 			email: '',
 			password: ''

@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { Query } from 'react-apollo';
+import User from './User';
 import InitialState from '../InitialState';
 import AppNavigationBar from './app/Navigation/AppNavigationBar';
-import { USER_QUERY } from './gql/query';
 import route from '../lib/route';
 
 import getParents from '../lib/getParents';
@@ -18,14 +17,15 @@ class AppWrapper extends Component<Props> {
 	render() {
 		if (typeof this.props.children === 'function') {
 			return (
-				// @ts-ignore
-				<Query
-					query={USER_QUERY}
-					variables={{ id: this.props.router.query.id }}
-				>
-					{({ data, error, loading }) => {
+				<User>
+					{payload => {
+						const { data, loading, error } = payload;
 						if (loading) return <p>Loading...</p>;
-						if (!(data || {}).user) {
+						if (error) return alert(error.message);
+						if (!(data || {}).loggedInUser) {
+							console.warn(
+								'No user logged in, re-routing to login page'
+							);
 							return route('/login');
 						}
 						return (
@@ -35,13 +35,13 @@ class AppWrapper extends Component<Props> {
 									{this.props.children({
 										state: this.state,
 										methods: this.methods,
-										user: data.user
+										user: data.loggedInUser
 									})}
 								</main>
 							</>
 						);
 					}}
-				</Query>
+				</User>
 			);
 		} else {
 			return <>{this.props.children}</>;
